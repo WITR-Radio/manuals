@@ -228,3 +228,6 @@ TSWLatexianTemp*
 # Word documents
 *.docx
 *.doc
+
+# Expanded Word documents
+amm/amm-word/*
