@@ -1,0 +1,875 @@
+%! program = pdflatex
+
+% To Future Maintainers:
+% To save future members from typographic atrocities, please only use the
+% \textbf{} macro for emphasis. Do not put things in all caps. Do not underline
+% them. Do not italicize them. Just use bold.
+
+% Also, if you find yourself reverting to dirty hacks to get LaTeX to do what
+% you want with the body text, you're probably doing something you shouldn't be.
+% Step back and reconsider, and maybe you'll find a better way.
+
+% This defines the document as a 14pt-size article on US letter paper that only
+% uses one side of the page (don't shift it right and left like a book)
+\documentclass[14pt,letterpaper,article,oneside]{memoir}
+
+% LaTeX Packages: These expand the functionality of LaTeX. What each one does is
+% described after the command
+\usepackage{graphicx}  % WITR Graphics
+\usepackage{eso-pic}   % Background images
+\usepackage{textpos}   % Literally just to line up the date on the cover page
+\usepackage{fontspec}  % WITR Fonts
+\usepackage{color}     % Colorful text (also for the title page)
+\usepackage{hyperref}  % Links to webpages and to email addresses
+% \usepackage[showframe,pass]{geometry}  % Show me where the page borders are
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Paper Geometry Settings %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Memoir versions
+\settrims{0pt}{0pt}
+\settypeblocksize{620pt}{350pt}{*} % Set the size of the text block
+\setlrmargins{*}{*}{1} % Set the right and left margins
+\setulmargins{*}{*}{1.8} % Set the top and bottom margins
+\setheadfoot{28pt}{28pt}
+\setheaderspaces{18pt}{*}{*}
+\checkandfixthelayout
+
+
+%%%%%%%%%%%%%%%%%
+% Font Settings %
+%%%%%%%%%%%%%%%%%
+
+% Rather than defining a new font, abuse LaTeX's font names a little. Century
+% Gothic is techincally a sans serif font, but it's also the main font of the
+% document...
+\defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+\setmainfont{Century Gothic}
+% Bebas Neue is also a sans serif font, but here I'm abusing it as the alternate
+% font for the title on the TOC page.
+\setsansfont{Bebas Neue}
+
+% Color of the date on the first page. I don't remember why I called it revision
+% blue.
+\definecolor{revision-blue}{HTML}{1794BB}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Document Constants %
+%%%%%%%%%%%%%%%%%%%%%%
+
+% The revision date of the manual. Use all caps.
+\date{SPRING 2018}
+% E-board Names
+\newcommand{\wGM}{Steve DaSilva}
+\newcommand{\wPD}{Cristoph Grosse}
+\newcommand{\wCE}{Ben Reynolds}
+\newcommand{\wEC}{Nick Mailhot}
+\newcommand{\wMAL}{Cole Johnson}
+\newcommand{\wBD}{Jimmy Hermann}
+% Command to make the background for the title page
+\newcommand\TitlepageBG{%
+    \put(0,0){%
+        \parbox[b][\paperheight]{\paperwidth}{%
+            \vfill
+            \centering
+            \includegraphics[
+                width=0.91\paperwidth,
+                height=0.93\paperheight
+            ]{images/titlepage}%
+            \vfill
+}}}
+% Command to make the background of the Table of Contents page
+\newcommand\TOCBG{%
+    \put(0,0){%
+        \parbox[b][\paperheight]{\paperwidth}{%
+            \vfill
+            \centering
+            \includegraphics[
+                width=0.91\paperwidth,
+                height=0.93\paperheight
+            ]{images/toc}%
+            \vfill
+}}}
+% Command to make the background of the body pages
+\newcommand\BodyBG{%
+    \put(0,0){%
+        \parbox[b][\paperheight]{\paperwidth}{%
+            \vfill
+            \centering
+            \includegraphics[
+                width=0.91\paperwidth,
+                height=0.93\paperheight
+            ]{images/body}
+            \vfill
+}}}
+% New list item command that creates a bold name, followed by a colon, then a
+% description
+\newcommand{\bolditem}[2]{%
+    \item \textbf{#1}: #2
+}
+
+% This is the same as the itemize environment, except it clears the paragraph
+% spacing so that the line gaps aren't huge
+\newenvironment{skinnyitemize}{
+    \begin{itemize}
+        \setlength{\itemsep}{0pt}
+        \setlength{\parskip}{0pt}
+        \setlength{\parsep}{0pt}
+}{
+    \end{itemize}
+}
+% Same thing as above, but for enumerate
+\newenvironment{skinnyenumerate}{
+    \begin{enumerate}
+        \setlength{\itemsep}{0pt}
+        \setlength{\parskip}{0pt}
+        \setlength{\parsep}{0pt}
+}{
+    \end{enumerate}
+}
+
+% Don't show all the subsections in the TOC
+\setcounter{tocdepth}{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Paragraph Geometry Settings %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\parindent}{0cm} % Don't indent paragraphs
+\setlength{\parskip}{0.9em} % Skip 0.9 times the height of a line after each
+                            % paragraph
+
+% Avoid hyphenating things
+\hyphenpenalty=7500
+
+% This is where the document content starts
+\begin{document}
+
+% Make the title page
+\begin{titlingpage}
+% Use a title page style that doesn't have a bunch of stuff already in it
+\aliaspagestyle{titlingpage}{empty}
+
+% Set the background for this page only
+\AddToShipoutPictureBG*{\TitlepageBG} 
+
+% Create a floating block that's 6.6cm wide, -0.65cm from the left margin, and
+% 10cm from the top margin.
+\begin{textblock*}{6.6cm}(-0.65cm,10cm)
+{%
+    % This makebox centers the text underneath "MANUAL". It's 3mm smaller than
+    % the textblock box because it looks visually more centered. (The diagonal
+    % line affects visual centering.)
+    \makebox[6.3cm][c]{%
+    % Some magic constants that set the font size for the date
+    \fontsize{1.1cm}{1.4cm}\selectfont \color{revision-blue} \thedate%
+}}
+\end{textblock*}
+\end{titlingpage}
+
+% Set the background for this page only
+\AddToShipoutPictureBG*{\TOCBG}
+
+% This mbox is to make sure that the vspace doesn't get ignored. LaTeX ignores
+% spaces with no content before them.
+\mbox{}
+\vspace{3cm}
+% Horizontally center the stuff in this environment
+\begin{center}
+    % Include WITR's logo at 2cm x 2cm
+    \includegraphics[width=2cm,height=2cm]{images/witrlogo} \\
+    % Make a horizontally centered, 3.6cm-wide paragraph box (supports line
+    % breaks) that centers its contents.
+    \parbox[c][3.6cm][c]{\textwidth}{%
+        % The contents are supposed to be centered, but the text needs this
+        % anyway.
+        \centering
+        \fontsize{2.7cm}{1.5cm}\selectfont \textsf{MEMBER TRAINING\\ MANUAL}
+    } 
+
+    % include the date below the title. It's wrapped in brackets so that the
+    % \Large macro doesn't spill out into the rest of the document.
+    {\Large \thedate}
+\end{center}
+
+% the asterisk means that the contents itself isn't put into the ToC
+\tableofcontents* 
+
+% Force a page break here
+\pagebreak
+
+% Add a background image to every page from here on out. Note the difference
+% between this and the previous commands is the lack of asterisk
+\AddToShipoutPictureBG{\BodyBG}
+
+% Again, workaround the space being ignored
+\mbox{}
+\vspace{1cm}
+\chapter{Welcome to WITR 89.7}
+
+WITR is a volunteer-based organization run by the students of the Rochester
+Institute of Technology.  Operating in a professional manner is what keeps WITR
+89.7 on the air and allows us to broadcast the best new music to the Rochester
+community and beyond.  This manual will provide you with the information you
+need to know about WITR’s operations and policies in order to be involved with
+the station.
+
+Training to become a member of WITR is organized by the Member at Large.
+General training sessions are held weekly during the beginning of each semester.
+Training sessions for specific departments are held by their respective
+department heads.
+
+The process for becoming a member of WITR is broken down into several steps.
+First, you must pass the General Membership Test.  The General Membership Test
+is composed of short answer questions based on the content of this manual.  It
+is hosted on paper in our station.  Upon successfully passing the test, you are
+granted membership to the station.  The General Membership Test can be taken up
+to fifteen times per semester, with no less than 24 hours between each attempt.
+It is strongly encouraged that you spend an hour or two studying this manual
+before attempting the test.
+
+After passing the General Membership Test, you are eligible to complete
+department-specific training evaluations.  Training for departments may begin
+prior to becoming a member, but the final examination cannot be attempted until
+you have passed the General Membership Test.
+
+% The introduction should always be on its own page.
+\pagebreak
+
+\section{WITR Facility Information}
+\begin{skinnyitemize}
+    \bolditem{Station Call Letters}{WITR}
+    \bolditem{Broadcast Frequency}{89.7 Megahertz}
+    \bolditem{Licensed Power}{910 Watts (Effective Radiated Power)}
+    \bolditem{Transmitter Location}{Tower A on Mark Ellingson Hall (50A)}
+    \bolditem{Station Type}{Non-commercial / Educational}
+    \bolditem{Community Served}{Henrietta}
+\end{skinnyitemize}
+
+\section{Station Contact Information}
+\begin{skinnyitemize}
+    \bolditem{WITR Office Number}{(585) 475-2000}
+    \bolditem{WITR Request Line}{(585) 475-2271}
+    \bolditem{WITR Website}{\href{https://witr.rit.edu}{witr.rit.edu}}
+    % This parbox here lines up the second line of the address underneath the
+    % first one
+    \bolditem{Mailing Address}{
+        \parbox[t][2.2em][t]{5cm}{32 Lomb Memorial Drive \\
+                                  Rochester, NY 14623}
+    }
+\end{skinnyitemize}
+
+\section{Current Executive Board Members}
+% You probably don't need to touch anything here, unless the email addresses
+% change.
+\begin{skinnyitemize}
+    \bolditem{General Manager}{\wGM
+        % The backslash makes sure there's a space between the name and the
+        % parenthesis.
+        \ (\href{mailto:gm@witr.rit.edu}{gm@witr.rit.edu})}
+    \bolditem{Program Director}{\wPD
+        \ (\href{mailto:pd@witr.rit.edu}{pd@witr.rit.edu})}
+    \bolditem{Chief Engineer}{\wCE
+        \ (\href{mailto:engineer@witr.rit.edu}{engineer@witr.rit.edu})}
+    \bolditem{Event Coordinator}{\wEC
+        \ (\href{mailto:ec@witr.rit.edu}{ec@witr.rit.edu})}
+    \bolditem{Member at Large}{\wMAL
+        \ (\href{mailto:mal@witr.rit.edu}{mal@witr.rit.edu})}
+    \bolditem{Business Director}{\wBD
+        \ (\href{mailto:business@witr.rit.edu}{business@witr.rit.edu})}
+\end{skinnyitemize}
+
+\section{The Executive Board}
+\subsection{General Manager}
+The General Manager oversees the Executive Board, ensures compliance with FCC
+and RIT regulations, and assumes the responsibilities of all empty positions
+within the station.
+
+% A Brief Primer on Dashes:
+% Dashes are actually more complicated than just the one that's on your
+% keyboard. There are actually four:
+% * Hyphen-Minus: This is the one you type
+% * Minus: This is one that's set slightly higher, specifically for math. LaTeX
+%       automatically uses this one when you're in math mode.
+% * En-dash: A dash that is as wide as the letter "n", to be used when
+%       expressing a range of numbers (The Yankees beat the Blue Jays 22--6).
+%       To typeset this in LaTeX, type two hyphen-minus dashes, like the example
+%       above
+% * Em-dash: A dash that is as wide as the letter "m", to be used when breaking
+%       up a sentence or when used the way it is below. LaTeX does this with
+%       three hyphen-minus dashes.
+
+% Also, bold is done with \textbf{text you want bolded}. It stands for Text
+% BoldFace.
+\textbf{Manages} --- Executive Board and all members
+
+\subsection{Program Director}
+The Program Director oversees all on-air content, organizes DJ shows, and
+ensures quality of programming.
+
+\textbf{Manages} --- Assistant Program Director, Music Director, News Director,
+Sports Director, Production Director, Production Team
+
+\subsection{Chief Engineer}
+The Chief Engineer oversees the technical operation of the station, the
+maintenance of all equipment, and the maintenance of the WITR website. He or she
+serves as the station’s Chief Operator.
+
+\textbf{Manages} --- Staff Engineer, Internal Developer, Engineering Department
+
+\subsection{Event Coordinator}
+The Event Coordinator oversees all WITR events, including music services,
+concerts, and fundraising events.
+
+\textbf{Manages} --- Assistant Event Coordinator, Event Services Manager
+
+\subsection{Member at Large}
+The Member at Large oversees training, All Member Meetings, social gatherings,
+and membership. He or she is responsible for the mediation and resolution of
+conflict issues between station members.
+
+\textbf{Manages} --- All members and trainees
+
+\subsection{Business Director}
+The Business Director oversees finances, budgeting, underwriting, branding, and
+promotions.
+
+\textbf{Manages} --- Secretary, Underwriting Agents, Promotions Director,
+Graphic Designer
+
+A complete list of names, email address, phone numbers, and office hours for the
+executive board and their respective officers can be found at the front desk of
+the downstairs office.  An abbreviated contact list can be found on the entrance
+wall of Studio X.  Most contact information is also listed on the WITR website.
+
+\chapter{General Station Policies}
+
+The following are general station policies that all members must abide by. A
+physical copy of these policies must be kept in the \textbf{public file}, which
+is located in the front desk cabinets in the downstairs office.
+
+\section{All Member Meeting Attendance}
+As a member, you are required to attend All Member Meetings, as outlined in our
+Bylaws and Policies and Procedures.  These meetings are intended to keep members
+informed as to station events, department progress, and any changes to
+organization policies.  All Member Meetings are held \textbf{three times a
+semseter} during the academic school year. Members are alerted of All Member
+Meetings by email two weeks in advance. Physical reminders are posted in the
+station one week in advance.
+
+All members should inform the Member at Large \textbf{at least 24 hours} before
+an All Member Meeting if they expect to be absent.  This, however, does not
+excuse absences.  Absences can only be waived by contacting the \textbf{Member
+at Large} and scheduling an individual meeting to review minutes from the missed
+All Member Meeting.  Minutes may be reviewed with either the Member at Large or
+the General Manager.  It is the responsibility of the member to schedule meeting
+make-ups.  Minutes must be made-up within one week of the missed meeting.
+
+Incomplete homework is not a valid excuse to miss a meeting. Members are
+informed of meeting times well in advance, and, as such, are expected to
+structure their weekend to include ample time for the completion of homework.
+
+\textbf{One unexcused absence} will result in a suspension of station privileges
+until meeting minutes are made-up.  The suspension is inclusive of both station
+access and on-air privileges.  \textbf{Three unexcused absences} will result in
+loss of membership and expulsion from the station.
+
+\section{Station Hours}
+Running a successful radio station would not be possible without the time and
+active participation of our 100+ student members. Because of this, each member
+is required to contribute \textbf{8~hours} of service to the station each
+semester in order to maintain membership. Hours can be achieved by helping out
+with events, reviewing CDs, performing department-specific tasks, or
+participating in service events sponsored by WITR department heads.
+
+In order to receive credit for your services, you must record your station hours
+online in the Station Hours Form found online at
+\href{http://witr.rit.edu/dj}{witr.rit.edu/dj}. Station Hours earned by
+reviewing CDs are the one exception to this, as the Music Director records them
+automatically. Those who do not meet the 8-hour requirement are subject to a
+suspension of privileges.
+
+\section{Station Facility Access}
+% Directly typing quotes in LaTeX doesn't work like you expect. You have to use
+% two backticks (the key above tab, also has the tilde on it) to start the quote
+% and two single quotes to end it. The reason this happens is because it allows
+% LaTeX to typeset the quotes such that the ones that start the quote curl up
+% and the ones that end it curl down. It's the "Smart Quotes" option in Word's
+% Autocorrect box, but you get to control when it happens.
+Upon passing the General Membership Test, you will be granted access to the
+station and its contents by the Member at Large. As a trainee, you may operate
+on-air equipment only with a DJ present. Operating equipment without being a
+trainee requires special permission from the Program Director. Access to Studio
+C and the garage are granted to designated positions within WITR. Access to
+server rooms, known as ``The Pit'' and ``Pit X,'' is granted only to the Chief
+Engineer, the Staff Engineer, and the General Manager.
+
+\section{Guest Policy}
+All non-member guests must be signed in by a chaperone member when they arrive.
+Members are held responsible for the behavior of any guests that they bring into
+the station. Trainees are considered non-members until they pass the General
+Membership Test. Members may only have a maximum of two guests in the station at
+one time, the only exceptions being if a DJ has been assigned more than two
+trainees per training time slot or if a Productions Team member is hosting a
+band’s recording session. All guests must leave the station before or with the
+member that signed them in. Sign-in sheets are located by the main entrance
+doors of both Studio X and the downstairs office.
+
+\section{Reporting Profanities and Other FCC Violations}
+If you hear a WITR DJ or member violate FCC regulations, please contact the
+General Manager and Program Director immediately. Include the name of the
+violator and the time of the alleged violation in your report. Do not ignore the
+violation or approach the DJ yourself.
+
+\section{Alcohol and Drug Policy}
+Alcohol, drugs, and smoking are \textbf{not allowed} in the WITR offices or
+studios \textbf{at any time}. Members found in violation of this rule are
+subject to automatic loss of membership and expulsion from WITR.
+
+\section{Sexual Misconduct}
+Sexual harassment, sexual misconduct, and any violations of Title IX are
+\textbf{not} tolerated at WITR. In the event that any individual feels that
+unwelcome, or inappropriate comments or actions were made in station or over the
+air, the responsible person will be dealt with in the strictest manner. This
+includes judicial action in accordance with the RIT sexual harassment policy.
+Sexual misconduct concerns should be brought to the Member at Large.
+
+\section{Equipment Failures}
+% href is the command that makes that into a clickable hyperlink. The first
+% bracketed argument is the url to link to; the second one is the text to
+% display on the page.
+Equipment failures should be reported using the Equipment Support Ticket System
+found in the tabs of \href{https://witr.rit.edu/dj}{witr.rit.edu/dj}. The system
+reports any equipment problems to the Chief Engineer. If the situation is an
+emergency warranting immediate attention, contact the Chief Engineer directly.
+
+\section{Food, Drink, Coats, and Bags}
+Coats and bags are allowed under the coat rack in the downstairs office. Food
+and drink are allowed only in the \textbf{offices} or \textbf{garage}. Food and
+drink are never allowed in the library, studios, or pits. Food trash should be
+disposed of in the trash bins located in the hallways outside of the downstairs
+office or Studio X.
+
+\section{Clean Up}
+It is your responsibility to clean up after yourself. Any time you leave the
+station, tidy up the areas that you've used in the offices or studios. Not only
+does this help WITR maintain a professional appearance, but it also makes the
+place we call home a more comfortable and enjoyable environment. DJs who do not
+return CDs and records to their proper locations in the library are subject to a
+one-week suspension from on-air privileges.
+
+\section{CD Removal}
+CDs and albums from our libraries may \textbf{never} be brought outside of the
+station.  The only CDs that are allowed out of the station are the
+to-be-reviewed CDs found in the \textbf{review cabinets}. These CDs must be
+signed out.  There is a zero tolerance policy for theft. Should you strongly
+dislike a CD that you are reviewing, return the CD to the station and allow
+another member to review it.
+
+\section{Securing the Station}
+If you are the last person the leave the station you must:
+\begin{skinnyenumerate}
+    \item \textbf{Make sure automation is running.} If this is unavailable, you
+        must \textbf{immediately} notify the Chief Engineer.
+    \item \textbf{Tidy up} any areas of the station you have used and clean up
+        any other obvious messes.
+    \item \textbf{Close all doors} to the station. This primarily includes the
+        doors to the garage and Studio C. Do not lock the door between the
+        upstairs office and Studio X.
+    \item \textbf{Turn off all of the light switches.} Emergency lights will
+        automatically be kept on.
+    \item \textbf{Ensure that all guests and non-members leave with you.}
+\end{skinnyenumerate}
+
+\section{FCC Logs}
+The binder in Studio X contains our daily FCC logs. The logs are separated by
+days of the week and are kept in \textbf{24-hour time}. When filling out logs,
+make sure to write \textbf{legibly} in \textbf{blue or black} ink only.
+
+In each section of the log, you will find:
+\begin{skinnyitemize}
+    \item \textbf{Underwriting Log} --- This sheet contains all of the
+        underwriting for the week and the specific times that the underwriting
+        should be aired. If there is underwriting scheduled during your show,
+        make sure to play that underwriting at the correct time and mark on the
+        sheet that you have done so.
+    \item \textbf{Power Reading Log} --- Current power output is tracked
+        automatically by our transmitter and no longer needs to be recorded by
+        DJs.  However, DJs must still record when automation has been turned on
+        or off. If you are the first DJ to be on the air after automation or the
+        last DJ to be on before automation, you must write ``Auto Off'' or
+        ``Auto On'' in the Auto Status column.
+    \item \textbf{Music Logs} --- DJs must record the names of the artists and
+        songs played during their show, as well as the time they are played.
+        Music logs should be completed with our online Song Logger at
+        \href{http://logger.witr.rit.edu}{logger.witr.rit.edu}. In the event
+        that the Song Logger is malfunctioning, DJs should keep a written record
+        in a similar format to the Song Logger and include that written record
+        in the FCC logs.
+\end{skinnyitemize}
+
+Should you make an error while filling out the logs, cross it out with a single
+line, place your initials next to the mistake, and date it. You may then fill in
+the correct values.
+
+\chapter{Transmitter Operation}
+Knowing how to use the transmitter remote control is an essential part of being
+a member of WITR. All members must be familiar with the basic operation and
+emergency procedures surrounding the transmitter. If something goes wrong with
+the transmitter, immediately contact the \textbf{Chief Engineer} and
+\textbf{General Manager}.
+
+\section{Location}
+The transmitter remote control is located in Studio A. As previously stated, our
+actual transmitter is located on top of Mark Ellingson Hall (Building 50A/MEH).
+
+\section{Channel Keys}
+There are two white buttons located on the transmitter remote. These buttons
+function similarly to a TV channel controls in that they change the channel that
+is currently active. The left button, with an outline of an up arrow, increases
+the current channel while the right button, with an outline of a down arrow,
+decreases the current channel. Just as different TV channels show different
+things, these channels also show different things. For station operation, a
+general member only needs to worry about two channels: Channel 1 and Channel 2.
+
+\section{Channel 1}
+Channel 1 is only to be used when turning the transmitter on and off. It
+essentially serves as the on/off switch for the transmitter. It is used to
+display and manipulate the transmitter’s power source. If the transmitter is on,
+it will show a voltage much greater than 0. If not, the reading will show
+something around 0.00 volts. Pressing the red ``down'' button will turn the
+transmitter off if you are in Channel 1. Pressing the green ``up'' button will
+turn the transmitter on is the transmitter is off.
+
+With the recent installation of our new transmitter, the remote retains
+functionality, but may not display the current voltage. This is does not
+indicate that we are not broadcasting and should not be a cause for concern.
+
+\section{Channel 2}
+Channel 2 is used to display and manipulate the transmitter’s output power. In
+other words, it displays how strong our current signal is. Pressing the green
+``up'' button will increase power while pressing the red ``down'' button will
+decrease power.
+
+In summary, we use \textbf{Channel 1 to turn the transmitter on and off} and use
+\textbf{Channel 2 to read and adjust the power}.
+
+\section{Status Lights}
+Small red status lights can be found on the left side of the remote. They
+indicate problems or other information about the transmitter. If any light from
+1-8 is on, you are probably not on air and do not have control of the
+transmitter. Special attention should be paid to the following three status
+lights:
+\begin{skinnyitemize}
+    \item \textbf{Light 1} --- The interlock light indicates that we’ve lost
+        contact with the transmitter. This means that someone is on the roof of
+        Ellingson. However, the transmitter may still be on despite of this.
+        Check the on-air feed in the office to verify that WITR is still
+        broadcasting.
+    \item \textbf{Light 2} --- Light 2 indicates that the transmitter is turned
+        off.
+    \item \textbf{Light 4} --- Light 4 indicates that the transmitter is muted.
+        It may light up when the transmitter is off.
+\end{skinnyitemize}
+
+\section{How to Power Up and ``Sign On''}
+The following procedure should be followed in order to properly and legally turn
+on the transmitter and begin broadcast:
+\begin{skinnyenumerate}
+    \item On the transmitter remote control, select \textbf{Channel 1} by using
+        the white channel keys
+    \item Push the \textbf{green ``up'' button} once to turn the transmitter on.
+        Light 2 should turn off to indicate that the transmitter is back on.
+    \item When the transmitter voltage has stopped moving, play the
+        \textbf{``FCC Sign On''} audio file found in the playout software. There
+        should also be a CD in both stuidos with emergency imaging. As noted
+        before, with the installation of our new transmitter, the voltage may
+        not be displayed.
+    \item Sign in on the FCC daily logs. Indicate the event in the FCC logs by
+        writing \textbf{``Power Up''} in the power column.
+\end{skinnyenumerate}
+
+\section{How to Power Down and ``Sign Off''}
+The following procedure should be followed in order to properly and legally turn
+off the transmitter and sign off.
+\begin{skinnyenumerate}
+    \item Indicate the power down event in the FCC logs by writing
+        \textbf{``Power Down''} in the power column and signing out.
+    \item Use exit delay in order to ensure that the entire sign-off file plays.
+        On the board, press the \textbf{``Dump''} button, then press
+        \textbf{``Exit Delay''}.
+    \item Play the \textbf{``FCC Sign Off''} audio file found on the computer.
+        There should also be a CD located in both studios with emergency
+        imaging.
+    \item On the transmitter remote, select \textbf{Channel 1} by using the
+        white channel keys.
+    \item As soon as the file finishes playing, push the \textbf{red ``down''
+        button} to turn the transmitter off. \textbf{Light 2} should light up
+        indicating that the transmitter is turned off.
+    \item Listen to the on-air office feed to ensure that we are actually
+        off-air. You should hear static, and possibly muddled voices.
+\end{skinnyenumerate}
+
+\section{Adjusting Transmitter Power Levels}
+WITR’s legal transmitter output is \textbf{936 watts, plus 5\% or minus 10\%}.
+936 watts is the transmitter power required to radiate an Effective Radiated
+Power of 910 watts. This allows for error in other parts of the system, such as
+remote control calibration and transmitter calibration. If the power is high or
+low, complete the following procedure to correct the error:
+\begin{skinnyenumerate}
+    \item Record the current power level in the power column of the FCC logs.
+    \item Ensure that the remote control is on \textbf{Channel 2}
+    \item Push the \textbf{red ``down'' button} or the \textbf{green ``up''
+        button} once and watch the reading. Repeat until the power is at or
+        close to 936 watts.
+    \item When the power is as close to 936 watts as possible, indicate the
+        event by writing \textbf{``Adjusted Power''} in the power column of the
+        FCC logs and including the new power level.
+\end{skinnyenumerate}
+
+As stated before, with the installation of our new transmitter, the current
+power levels may not be displaying on the remote control. If you have any
+concerns regarding the state of transmitter power levels, contact the Chief
+Engineer.
+
+\section{Emergency Alert System}
+The Emergency Alert System, referred to as the EAS, is fully automated and run
+from the blue unit in the rack inside of The Pit. Should an alert be issued, the
+EAS will automatically cut over a broadcast. No recording is necessary, but
+\textbf{it is strictly against WITR policy to acknowledge an alert on air}.
+
+\chapter{FCC Rules and Regulations}
+The following regulations are set by the FCC and apply to all radio broadcasts
+and FM operators. They must be strictly adhered to at all times. Violations are
+considered an infraction of Federal Law.
+
+\section{General Regulations}
+The primary concern of any FM operator or DJ is keeping the transmitter
+operating within the correct parameters. As a certified FM operator, it is your
+responsibility to know the laws, treaties, rules, and regulations that currently
+govern the station that you are operating. Do not operate any radio transmitter
+unless such operation is authorized by a valid station license.
+
+The following FCC rules regarding radio transmissions must be understood and
+adhered to at all times:
+\begin{enumerate}
+    \item It is illegal to willingly interfere with any radio communication or
+        signal.
+    \item It is illegal to transmit false or deceptive signals or communication
+        over radio.
+    \item It is illegal to falsely identify a radio station by transmitting a
+        call sign that has not been assigned by a proper authority to the
+        station. This means that you are \textbf{not} allowed to announce any
+        call letters other than WITR.
+    \item It is illegal to transmit unidentified radio communications or
+        signals.
+    \item It is illegal without authorization to receive or assist in receiving
+        any interstate or foreign communication by radio and use such
+        communication or any information contained in that communication for
+        personal benefit or the benefit or another unauthorized individual. This
+        does not apply to receiving or using the contents of any radio
+        communication that is transmitted for the use of the general public,
+        that relates to distressed ships, aircrafts, vehicles, or persons, or
+        that is transmitted by an amateur radio operator or citizen band radio
+        operator.
+    \item Obscene material may never be played on air at any time. FCC laws
+        allow for the broadcast of indecent or profane material in moderation
+        during safe harbor hours. However, it is WITR policy that indecent or
+        profane material is \textbf{never} played on air at any time, even
+        during safe harbor hours.
+
+        \subsection{Obscenity}
+        % Negative spaces are a thing. This moves it up 4 mm
+        \vspace{-4mm}
+        Obscenity is defined through a three-pronged test:
+        \begin{skinnyenumerate}
+            \item The material must be found to have a tendency to excite
+                lustful thoughts.
+            \item The material must explicity depict or describe, in a patently
+                offensive way, sexual conduct as defined by applicable law.
+            \item The material, as a whole, must lack literary, artistic,
+                political, or scientific value.
+        \end{skinnyenumerate}
+
+        \subsection{Indecency}
+        \vspace{-4mm}
+        Indecency has any of the following definitions:
+        \begin{skinnyitemize}
+            \item The depiction or description is explicit or graphic.
+            \item The material dwells on or repeats at length descriptions or
+                depictions of sexual or excretory organs.
+            \item The material appears to pander or is used to tittilate or
+                shock.
+        \end{skinnyitemize}
+
+        \subsection{Profanity}
+        \vspace{-4mm}
+        Profane language includes those words that are so highly offensive that
+        their mere utterance in the context presented may, in legal terms,
+        amount to a nuisance. This is inclusive of curses, slurs, and words that
+        have no other meaning than something profane. 
+
+        In addition to the above FCC policies, the seven words always considered
+        unacceptable to be aired are:
+        % The numbers here are explicitly specified because otherwise LaTeX uses
+        % letters.
+        \textbf{\begin{skinnyenumerate}
+            \item[1.] Shit
+            \item[2.] Piss
+            \item[3.] Fuck
+            \item[4.] Cunt
+            \item[5.] Cock Sucker
+            \item[6.] Motherfucker
+            \item[7.] Tits
+        \end{skinnyenumerate}}
+
+        It is WITR policy that these words are \textbf{never aired} at
+        \textbf{any time}, including safe harbor hours.
+
+    \item It is illegal to make slanderous/derogatory remarks about any
+        individual, business, organization, or institution.
+    \item It is illegal to make derogatory remarks regarding race, gender,
+        sexual orientation, or religion.
+    \item It is illegal to broadcast a telephone conversation without permission
+        from the caller. In addition, WITR policy dictates that aired
+        conversations must be approved by the Program Director before being
+        aired. Therefore, DJs must have permission from both the caller and the
+        Program Director.
+\end{enumerate}
+
+\section{Station Identification}
+% If the code breaks here when you compile it, you're not using XeLaTeX. Regular
+% LaTeX can't handle the plus/minus symbol right there. Also, regular LaTeX
+% can't do the Century Gothic font without other changes.
+The FCC requires that the station perform a legal ID every hour, as close to the
+top of the hour as possible. A legal ID must be performed \textbf{±5 minutes}
+from the top of each hour during a break in programming. Ideally, the legal ID
+will occur at the first natural break after the hour.
+
+The FCC defines a legal ID as an announcement of the station's \textbf{call
+letters} immediately followed by the \textbf{community served}.
+
+Therefore, a legal ID for WITR must contain the words ``WITR Henrietta'' with
+nothing separating them. DJs may announce the ID live or play ID imaging from
+the computer. When announcing the legal ID, WITR must be pronounced as
+individual letters (``W-I-T-R''). ``Witter'' is only our station’s nickname and
+is not considered a legal ID.
+
+\section{Safe Harbor Hours}
+The FCC defines safe harbor hours as 22:00--06:00. However, \textbf{WITR policy
+does not recognize safe harbor hours}. Indecent or profane material may
+\textbf{not} be played at any time, including safe harbor hours. It is both FCC
+and WITR policy that obscene material is \textbf{not} allowed at any time.
+
+\section{Commercials and Calls to Action}
+As a non-commercial station, WITR is not allowed to play commercials. It is
+illegal under the regulations of the FCC. When stating opinions over the air,
+you may not allow your comments to turn into a commercial.
+
+According to the FCC, a \textbf{call to action} is what elevates a statement to
+a commercial. A call to action occurs when you tell a listener to complete an
+action, as in ``go get'', ``go buy'', ``go see'', etc.
+
+Mentioning prices is never allowed unless it is in regards to a WITR or RIT
+event. Mentioning commercial entities is legal as long as you do not encourage
+listeners to do with business with that entity. Descriptions may be informative,
+but not encouraging.
+
+Violations of this regulation occur most often by DJs during mic breaks when
+they are announcing concerts or events not hosted by WITR or RIT. It is
+important for DJs to use good judgment. For example, if you would like to talk
+about an upcoming concert from your favorite band, you may state that the
+concert exists and give the date and location of that concert. You may not,
+however, give the price of tickets or tell listeners to ``go to'', ``attend'',
+or ``check out'' the show.
+
+\section{Underwriting}
+Although WITR cannot air advertising, we are allowed to sell underwriting.
+Underwriting, as defined by the FCC, may include the following:
+\begin{skinnyitemize}
+    \item Logograms or slogans that identify but do not promote
+    \item Locations
+    \item Value neutral descriptions of a product or line of services
+    \item Brand and trade names
+    \item Product or service listings
+\end{skinnyitemize}
+
+\section{Leaving Transmitter Controls Unattended}
+It is \textbf{extremely} illegal to leave transmitter controls unattended. Doing
+so could cause dead air, which is a waste of resources and severely frowned upon
+in the eyes of the FCC. If a person who is supposed to take over for a DJ after
+a show does not show up and automation is unavailable, the current DJ must power
+down the transmitter.
+
+FCC regulations require that you make transmitter controls inaccessible to
+unauthorized people. That means that members must be conscious of closing all
+the station doors in order to make the transmitter secure. To aid this, most of
+our station doors are kept locked automatically. However, this does mean that
+any guests must come with if I you need to step out of the station quickly to
+use the bathroom during your show or something to that effect.
+
+In case of an emergency where you must leave the building, such as a bomb threat
+or fire alarm, you are first responsible for leaving the transmitter in the
+correct state. To secure the station in an emergency you must:
+\begin{skinnyenumerate}
+    \item Turn off the transmitter.
+    \item Close all doors to the station.
+    \item Ensure that no person remains in the station when you leave.
+\end{skinnyenumerate}
+
+Note that it is not necessary to tidy up or turn off the lights in an emergency.
+
+\section{FCC Violations}
+The three basic penalties that may occur if you violate FCC regulations are as
+follows:
+\begin{skinnyenumerate}
+    \item You may \textbf{lose on-air and/or station privileges} at WITR.
+        % Dollar signs normally start math mode. This one is escaped so it
+        % doesn't
+    \item WITR may be \textbf{fined up to \$275,000}.
+    \item Worst Case: WITR may \textbf{lose its FM license} to broadcast.
+\end{skinnyenumerate}
+
+\section{Suspension Policy}
+The Chief Engineer, Program Director, Member at Large, and General Manager are
+the only people who can suspend you from station privileges. You may be
+suspended for any of the following violations:
+\begin{skinnyitemize}
+    \item Improper sign-off of the transmitter (for example: Leaving your show
+        without turning on automation)
+    \item Improper FCC daily log keeping
+    \item Obscene, indecent, or profane material played on air.
+    \item Missing an All Member Meeting and failing to make that meeting up
+        within one week
+    \item Inadequate WITR station hours
+    \item Failing to adhere to any of the other policies defined in this manual,
+        WITR’s Policies and Procedures, or WITR’s Bylaws
+\end{skinnyitemize}
+
+% Guess what that macro does...
+Suspensions are issued at the discretion of the four identified e-board members.
+The length of the suspension shall be defined, but is left to the discretion of
+the officer.  discretion. Members can be suspended for 1\textsuperscript{st}
+time offenses.
+
+\pagebreak
+\chapter{Conclusion}
+WITR strives to be the best student-run college radio station in the country.
+More importantly, WITR is a family of hard-working and diverse students. By
+understanding and knowing these rules, you too will have to opportunity to
+contribute in your own way to this truly special organization.
+
+% Skip half a centimeter down, for visual harmony
+\vspace{0.5cm}
+% Center this box and put WITR's logo in it
+\makebox[\textwidth][c]{
+    \includegraphics[width=1.5cm,height=1.5cm]{images/witrlogo}
+}
+
+
+\end{document}
+% Aaaaannd... we're done.
