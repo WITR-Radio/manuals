@@ -231,3 +231,9 @@ TSWLatexianTemp*
 
 # Expanded Word documents
 amm/amm-word/*
+
+# Output PDFs
+amm/amm.pdf
+amm/amm-withclass.pdf
+trainee/djtraining.pdf
+trainer/djtrainer.pdf
