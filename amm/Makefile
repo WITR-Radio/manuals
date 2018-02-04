@@ -6,4 +6,4 @@ all: ${PDFS}
 
 # How to make a PDF
 %.pdf : %.tex
-	rubber -o xelatex -f --pdf -s $<
+	latexmk -pdf -xelatex -use-make $<
