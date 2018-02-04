@@ -1,5 +1,7 @@
 # Manuals
 
+[![Build Status][travis-badge]][travis-link]
+
 This repository contains our organization's training manuals:
 * All Member Manual &mdash; general information about the station that every
 member should know
@@ -7,6 +9,8 @@ member should know
 equipment
 * DJ Trainer Manual &mdash; a guide to help existing DJs train new ones
 
+[travis-badge]: https://travis-ci.org/WITR-Radio/manuals.svg?branch=master
+[travis-link]: https://travis-ci.org/WITR-Radio/manuals
 
 ## Motivation
 
