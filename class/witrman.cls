@@ -2,9 +2,9 @@
 \ProvidesClass{witrman}[2018/01/31 WITR Manual Formatting]
 
 % We're re-using memoir under the hood
-% This defines the document as a 14pt-size article on US letter paper that only
+% This defines the document as a 12pt-size article on US letter paper that only
 % uses one side of the page (don't shift it right and left like a book)
-\LoadClass[14pt,letterpaper,article,oneside]{memoir}
+\LoadClass[12pt,letterpaper,article,oneside]{memoir}
 
 
 %%%%%%%%%%%%%%%%%%%%%
@@ -39,15 +39,10 @@
 % We're perverting the standard LaTeX font definitions here, because the main
 % font is supposed to be a serif font, but here both are sans-serif.  It's
 % alright, though, we know what we're doing.
-\setmainfont{Century Gothic}
-\setsansfont{Bebas Neue}
-
-% If you can't find a copy of Century Gothic, LaTeX has an open-source clone
-% called URW Gothic.  Comment out the Century Gothic line above and uncomment
-% these to use it:
-%\RequirePackage{avant}
-%\RequirePackage[T1]{fontenc}
-%\renewcommand*\familydefault{\sfdefault}
+\RequirePackage{avant}
+\RequirePackage[T1]{fontenc}
+\renewcommand*\familydefault{\sfdefault}
+\newfontfamily\logofont{Bebas Neue}
 
 
 %%%%%%%%%%
@@ -156,17 +151,13 @@
 % Set the background for this page only
 \AddToShipoutPictureBG*{\TitlepageBG} 
 
-% Create a floating block that's 6.6cm wide, -0.65cm from the left margin, and
-% 10cm from the top margin.
-\begin{textblock*}{6.6cm}(-0.65cm,10cm)
-{%
-    % This makebox centers the text underneath "MANUAL". It's 3mm smaller than
-    % the textblock box because it looks visually more centered. (The diagonal
-    % line affects visual centering.)
-    \makebox[6.3cm][c]{%
-    % Some magic constants that set the font size for the date
-    \fontsize{1.1cm}{1.4cm}\selectfont \color{revision-blue} \thedate%
-}}
+% Create a floating block that's 6.6cm wide, -0.6cm from the left margin, and
+% 9.8cm from the top margin.  These magic numbers line up the text with the rest
+% of the text on the front cover.
+\begin{textblock*}{6.6cm}(-0.6cm,9.8cm) {%
+    % Some more magic constants that set the font size for the revision date
+    \fontsize{0.9cm}{1.2cm}\selectfont \color{revision-blue} \thedate%
+}
 \end{textblock*}
 \end{titlingpage}
 }
@@ -190,7 +181,7 @@
         % The contents are supposed to be centered, but the text needs this
         % anyway.
         \centering
-        \fontsize{2.7cm}{1.5cm}\selectfont \textsf{\thetitle}
+        \fontsize{2.7cm}{1.5cm}\selectfont {\logofont\thetitle}
     } 
 
     % include the date below the title. It's wrapped in brackets so that the
