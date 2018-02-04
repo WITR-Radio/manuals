@@ -11,8 +11,8 @@ before_install:
   # Create the XeLaTeX folder
   - mkdir -p /home/travis/texmf/tex/xelatex
   # Link the manual class into the texmf directory, so it can be used
-  - ln -s /home/travis/manuals/class/witrman.cls /home/travis/texmf/tex/xelatex/witrman.cls
-  - ln -s /home/travis/manuals/class/images /home/travis/texmf/tex/xelatex/images
+  - ln -s /home/travis/build/WITR-Radio/manuals/class/witrman.cls /home/travis/texmf/tex/xelatex/witrman.cls
+  - ln -s /home/travis/build/WITR-Radio/manuals/class/images /home/travis/texmf/tex/xelatex/images
   # Download Bebas Neue, to skirt license issues
   - curl "http://www.fontfabric.com/downfont/bebas_neue.zip" > bebas_neue.zip
   # Extract the bold weight from that zip
