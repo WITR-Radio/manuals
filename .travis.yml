@@ -1,0 +1,23 @@
+language: c
+before_install:
+  # Install TeX packages
+  - sudo apt update
+  - sudo apt install texlive-xetex texlive-latex-recommended texlive-fonts-recommended xzdec rubber
+  # Set up the TeX environment
+  - tlmgr init-usertree
+  - tlmgr option repository ftp://tug.org/historic/systems/texlive/2015/tlnet-final
+  # Install textpos
+  - tlmgr install textpos
+  # Link the manual class into the texmf directory, so it can be used
+  - ln -s /home/travis/manuals/class/witrman.cls /home/travis/texmf/tex/latex/witrman.cls
+  - ln -s /home/travis/manuals/class/images /home/travis/texmf/tex/latex/images
+  # Download Bebas Neue, to skirt license issues
+  - curl "http://www.fontfabric.com/downfont/bebas_neue.zip" > bebas_neue.zip
+  # Extract the bold weight from that zip
+  - unzip bebas_neue "BebasNeue Bold.otf"
+  # Make the local font folder
+  - mkdir -p .local/share/fonts
+  # Install Bebas Neue
+  - mv "BebasNeue Bold.otf" ".local/share/fonts/"
+  # Update the font cache
+  - fc-cache -f -v
