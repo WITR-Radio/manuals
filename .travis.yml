@@ -9,7 +9,7 @@ before_install:
   # Install textpos
   - tlmgr install textpos
   # Create the XeLaTeX folder
-  - mkdir -p texmf/tex/xelatex
+  - mkdir -p /home/travis/texmf/tex/xelatex
   # Link the manual class into the texmf directory, so it can be used
   - ln -s /home/travis/manuals/class/witrman.cls /home/travis/texmf/tex/xelatex/witrman.cls
   - ln -s /home/travis/manuals/class/images /home/travis/texmf/tex/xelatex/images
@@ -18,8 +18,8 @@ before_install:
   # Extract the bold weight from that zip
   - unzip bebas_neue "BebasNeue Bold.otf"
   # Make the local font folder
-  - mkdir -p .local/share/fonts
+  - mkdir -p /home/travis/.local/share/fonts
   # Install Bebas Neue
-  - mv "BebasNeue Bold.otf" ".local/share/fonts/"
+  - mv "BebasNeue Bold.otf" "/home/travis/.local/share/fonts/"
   # Update the font cache
   - fc-cache -f -v
