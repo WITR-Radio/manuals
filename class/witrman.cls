@@ -2,9 +2,9 @@
 \ProvidesClass{witrman}[2018/01/31 WITR Manual Formatting]
 
 % We're re-using memoir under the hood
-% This defines the document as a 12pt-size article on US letter paper that only
+% This defines the document as a 14pt-size article on US letter paper that only
 % uses one side of the page (don't shift it right and left like a book)
-\LoadClass[12pt,letterpaper,article,oneside]{memoir}
+\LoadClass[14pt,letterpaper,article,oneside]{memoir}
 
 
 %%%%%%%%%%%%%%%%%%%%%
@@ -39,9 +39,7 @@
 % We're perverting the standard LaTeX font definitions here, because the main
 % font is supposed to be a serif font, but here both are sans-serif.  It's
 % alright, though, we know what we're doing.
-\RequirePackage{avant}
-\RequirePackage[T1]{fontenc}
-\renewcommand*\familydefault{\sfdefault}
+\setmainfont{TeX Gyre Adventor}
 \newfontfamily\logofont{Bebas Neue}
 
 
