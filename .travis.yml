@@ -1,6 +1,5 @@
 language: c
 before_install:
-  - echo "$TRAVIS_BUILD_DIR, $HOME"
   # Install TeX packages
   - sudo apt update
   - sudo apt install texlive-xetex texlive-latex-recommended texlive-fonts-recommended xzdec latexmk
@@ -12,8 +11,8 @@ before_install:
   # Create the XeLaTeX folder
   - mkdir -p "$HOME/texmf/tex/xelatex"
   # Link the manual class into the texmf directory, so it can be used
-  - ln -s "$TRAVIS_BUILD_DIR/WITR-Radio/manuals/class/witrman.cls" "$HOME/texmf/tex/xelatex/witrman.cls"
-  - ln -s "$TRAVIS_BUILD_DIR/WITR-Radio/manuals/class/images" "$HOME/texmf/tex/xelatex/images"
+  - ln -s "$TRAVIS_BUILD_DIR/class/witrman.cls" "$HOME/texmf/tex/xelatex/witrman.cls"
+  - ln -s "$TRAVIS_BUILD_DIR/class/images" "$HOME/texmf/tex/xelatex/images"
   # Download Bebas Neue, to skirt license issues
   - curl "http://www.fontfabric.com/downfont/bebas_neue.zip" > bebas_neue.zip
   # Extract the bold weight from that zip
@@ -35,6 +34,6 @@ deploy:
   api_key:
     secure: "Hcep6fU4rMAJWvK39ye189YW8zMEVNGATYqc2x0ODXJ8CV4+hbOSX/TKZUJy5ZyYodo/N4ZPGESeVHqbMfFd6MZ8TgblUnyN40VmzHUyhyxKT1mx8YjxFQYbXuNls+qnCY3DUy5WGhkhcuFP1D9BPxUyLM+dfFiHRuczALQXL98WFaFo5o2K3skS6F3aBxIkOSwE2QWdk+GaN2bpcamOXJNLIOgF99rEknxa6BQCtFnNFgYu46kcOdZ50OWWsnd0tnVvNPecvlbIAV83h9McGYt5/Nz/dr+uqWh1gy6aaPOoOhVXu4Gu4yX3R33QYukZuo+syBpiGoktQ2scp+GAPz5sYHEpTJukVPjQckEuTk6r2YSS3aCGZDcSy9qwzW1X0aUu+fvV0yCng9ZhroiiBP/YButpPD2GFuVYGrYW9MkapYqeWFneVAGA2k2fvJnXLvP9ZmvhnEt6FAEyFQZBDTfmBGJewt1O1/Ziz9PA4hHgl0jSlUkseT1pz4BoTmBqMm8IsY3x1NFb2R8VDMeRPR6mRGmchU8Tpd63Ko9Q/sufSdjEd0z02HwADAW18QIu1ovbfqepDTeiFfbaNRYuJdPEA0nyMop3k/N2Pa+M+agz8sEkTwbuDpnV+5zHcCI0/pVqk4AuNhUCijO4+hcrX0cI57I7Y/KJSd7kOOmOzSI="
   file:
-    - "WITR-Radio/manuals/amm/amm.pdf"
-    - "WITR-Radio/manuals/trainer/djtrainer.pdf"
-    - "WITR-Radio/manuals/trainee/djtraining.pdf"
+    - "amm/amm.pdf"
+    - "trainer/djtrainer.pdf"
+    - "trainee/djtraining.pdf"
