@@ -1,5 +1,6 @@
 language: c
 before_install:
+  - echo "$TRAVIS_BUILD_DIR, $HOME"
   # Install TeX packages
   - sudo apt update
   - sudo apt install texlive-xetex texlive-latex-recommended texlive-fonts-recommended xzdec latexmk
