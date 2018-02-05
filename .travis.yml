@@ -29,13 +29,25 @@ before_deploy:
   - git config --local user.email "travis@travis-ci.org"
   - git tag "$(date +'%Y-%m-%dT%H%M')-$(git log --format=%h -1)"
 deploy:
-  provider: releases
-  skip_cleanup: true
-  api_key:
-    secure: "Hcep6fU4rMAJWvK39ye189YW8zMEVNGATYqc2x0ODXJ8CV4+hbOSX/TKZUJy5ZyYodo/N4ZPGESeVHqbMfFd6MZ8TgblUnyN40VmzHUyhyxKT1mx8YjxFQYbXuNls+qnCY3DUy5WGhkhcuFP1D9BPxUyLM+dfFiHRuczALQXL98WFaFo5o2K3skS6F3aBxIkOSwE2QWdk+GaN2bpcamOXJNLIOgF99rEknxa6BQCtFnNFgYu46kcOdZ50OWWsnd0tnVvNPecvlbIAV83h9McGYt5/Nz/dr+uqWh1gy6aaPOoOhVXu4Gu4yX3R33QYukZuo+syBpiGoktQ2scp+GAPz5sYHEpTJukVPjQckEuTk6r2YSS3aCGZDcSy9qwzW1X0aUu+fvV0yCng9ZhroiiBP/YButpPD2GFuVYGrYW9MkapYqeWFneVAGA2k2fvJnXLvP9ZmvhnEt6FAEyFQZBDTfmBGJewt1O1/Ziz9PA4hHgl0jSlUkseT1pz4BoTmBqMm8IsY3x1NFb2R8VDMeRPR6mRGmchU8Tpd63Ko9Q/sufSdjEd0z02HwADAW18QIu1ovbfqepDTeiFfbaNRYuJdPEA0nyMop3k/N2Pa+M+agz8sEkTwbuDpnV+5zHcCI0/pVqk4AuNhUCijO4+hcrX0cI57I7Y/KJSd7kOOmOzSI="
-  file:
-    - "amm/amm.pdf"
-    - "trainer/djtrainer.pdf"
-    - "trainee/djtraining.pdf"
-  on:
-    all_branches: true
+  - provider: releases
+    skip_cleanup: true
+    api_key:
+      secure: "Hcep6fU4rMAJWvK39ye189YW8zMEVNGATYqc2x0ODXJ8CV4+hbOSX/TKZUJy5ZyYodo/N4ZPGESeVHqbMfFd6MZ8TgblUnyN40VmzHUyhyxKT1mx8YjxFQYbXuNls+qnCY3DUy5WGhkhcuFP1D9BPxUyLM+dfFiHRuczALQXL98WFaFo5o2K3skS6F3aBxIkOSwE2QWdk+GaN2bpcamOXJNLIOgF99rEknxa6BQCtFnNFgYu46kcOdZ50OWWsnd0tnVvNPecvlbIAV83h9McGYt5/Nz/dr+uqWh1gy6aaPOoOhVXu4Gu4yX3R33QYukZuo+syBpiGoktQ2scp+GAPz5sYHEpTJukVPjQckEuTk6r2YSS3aCGZDcSy9qwzW1X0aUu+fvV0yCng9ZhroiiBP/YButpPD2GFuVYGrYW9MkapYqeWFneVAGA2k2fvJnXLvP9ZmvhnEt6FAEyFQZBDTfmBGJewt1O1/Ziz9PA4hHgl0jSlUkseT1pz4BoTmBqMm8IsY3x1NFb2R8VDMeRPR6mRGmchU8Tpd63Ko9Q/sufSdjEd0z02HwADAW18QIu1ovbfqepDTeiFfbaNRYuJdPEA0nyMop3k/N2Pa+M+agz8sEkTwbuDpnV+5zHcCI0/pVqk4AuNhUCijO4+hcrX0cI57I7Y/KJSd7kOOmOzSI="
+    file:
+      - "amm/amm.pdf"
+      - "trainer/djtrainer.pdf"
+      - "trainee/djtraining.pdf"
+    on:
+      branch: master
+      tags: true
+  - provider: releases
+    skip_cleanup: true
+    prerelease: true
+    api_key:
+      secure: "Hcep6fU4rMAJWvK39ye189YW8zMEVNGATYqc2x0ODXJ8CV4+hbOSX/TKZUJy5ZyYodo/N4ZPGESeVHqbMfFd6MZ8TgblUnyN40VmzHUyhyxKT1mx8YjxFQYbXuNls+qnCY3DUy5WGhkhcuFP1D9BPxUyLM+dfFiHRuczALQXL98WFaFo5o2K3skS6F3aBxIkOSwE2QWdk+GaN2bpcamOXJNLIOgF99rEknxa6BQCtFnNFgYu46kcOdZ50OWWsnd0tnVvNPecvlbIAV83h9McGYt5/Nz/dr+uqWh1gy6aaPOoOhVXu4Gu4yX3R33QYukZuo+syBpiGoktQ2scp+GAPz5sYHEpTJukVPjQckEuTk6r2YSS3aCGZDcSy9qwzW1X0aUu+fvV0yCng9ZhroiiBP/YButpPD2GFuVYGrYW9MkapYqeWFneVAGA2k2fvJnXLvP9ZmvhnEt6FAEyFQZBDTfmBGJewt1O1/Ziz9PA4hHgl0jSlUkseT1pz4BoTmBqMm8IsY3x1NFb2R8VDMeRPR6mRGmchU8Tpd63Ko9Q/sufSdjEd0z02HwADAW18QIu1ovbfqepDTeiFfbaNRYuJdPEA0nyMop3k/N2Pa+M+agz8sEkTwbuDpnV+5zHcCI0/pVqk4AuNhUCijO4+hcrX0cI57I7Y/KJSd7kOOmOzSI="
+    file:
+      - "amm/amm.pdf"
+      - "trainer/djtrainer.pdf"
+      - "trainee/djtraining.pdf"
+    on:
+      branch: dev
