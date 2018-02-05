@@ -37,3 +37,5 @@ deploy:
     - "amm/amm.pdf"
     - "trainer/djtrainer.pdf"
     - "trainee/djtraining.pdf"
+  on:
+    all_branches: true
