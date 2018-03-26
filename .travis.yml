@@ -5,6 +5,7 @@ before_install:
   - sudo apt install texlive-xetex texlive-latex-recommended texlive-fonts-recommended xzdec latexmk
   # Set up the TeX environment
   - tlmgr init-usertree
+  - tlmgr option repository ftp://tug.org/historic/systems/texlive/2014/tlnet-final
   # Install textpos
   - tlmgr install textpos
   # Create the XeLaTeX folder
