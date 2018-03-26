@@ -1,7 +1,7 @@
 language: r
 before_install:
   # Install LaTeXmk
-  - apt-get install latexmk
+  - sudo apt install latexmk
   # Set up the TeX environment
   - tlmgr init-usertree
   # Install textpos
