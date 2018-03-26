@@ -1,11 +1,7 @@
-language: c
+language: r
 before_install:
-  # Install TeX packages
-  - sudo apt update
-  - sudo apt install texlive-xetex texlive-latex-recommended texlive-fonts-recommended xzdec latexmk
   # Set up the TeX environment
   - tlmgr init-usertree
-  - tlmgr option repository ftp://tug.org/historic/systems/texlive/2014/tlnet-final
   # Install textpos
   - tlmgr install textpos
   # Create the XeLaTeX folder
@@ -23,6 +19,8 @@ before_install:
   - mv "BebasNeue Bold.otf" "$HOME/.local/share/fonts/"
   # Update the font cache
   - fc-cache -f -v
+script:
+  - ./configure && make
 before_deploy:
   # Set up git user name and tag this commit
   - git config --local user.name "Travis CI"
