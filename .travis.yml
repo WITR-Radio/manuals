@@ -1,7 +1,7 @@
 language: c
 before_install:
   # Install TeX packages
-  - sudo apt-add-repository ppa:jonathonf/texlive
+  - sudo apt-add-repository -y ppa:jonathonf/texlive
   - sudo apt update
   - sudo apt install texlive-xetex texlive-latex-recommended texlive-fonts-recommended xzdec latexmk
   # Set up the TeX environment
