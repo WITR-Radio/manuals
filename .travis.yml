@@ -1,25 +1,57 @@
-language: c
+language: r
+env:
+  - "TEXINPUTS=${TRAVIS_BUILD_DIR}/class//:"
 before_install:
-  # Install TeX packages
-  - sudo apt update
-  - sudo apt install texlive-xetex texlive-latex-recommended texlive-fonts-recommended xzdec latexmk
+  # Install LaTeXmk
+  - sudo apt install fonts-texgyre latexmk
   # Set up the TeX environment
   - tlmgr init-usertree
-  - tlmgr option repository ftp://tug.org/historic/systems/texlive/2015/tlnet-final
   # Install textpos
   - tlmgr install textpos
   # Create the XeLaTeX folder
-  - mkdir -p /home/travis/texmf/tex/xelatex
+  - mkdir -p "$HOME/texmf/tex/xelatex"
   # Link the manual class into the texmf directory, so it can be used
-  - ln -s /home/travis/build/WITR-Radio/manuals/class/witrman.cls /home/travis/texmf/tex/xelatex/witrman.cls
-  - ln -s /home/travis/build/WITR-Radio/manuals/class/images /home/travis/texmf/tex/xelatex/images
+  - ln -s "$TRAVIS_BUILD_DIR/class/witrman.cls" "$HOME/texmf/tex/xelatex/witrman.cls"
+  - ln -s "$TRAVIS_BUILD_DIR/class/images" "$HOME/texmf/tex/xelatex/images"
   # Download Bebas Neue, to skirt license issues
   - curl "http://www.fontfabric.com/downfont/bebas_neue.zip" > bebas_neue.zip
   # Extract the bold weight from that zip
   - unzip bebas_neue "BebasNeue Bold.otf"
   # Make the local font folder
-  - mkdir -p /home/travis/.local/share/fonts
+  - mkdir -p "$HOME/.local/share/fonts"
   # Install Bebas Neue
-  - mv "BebasNeue Bold.otf" "/home/travis/.local/share/fonts/"
+  - mv "BebasNeue Bold.otf" "$HOME/.local/share/fonts/"
   # Update the font cache
   - fc-cache -f -v
+install:
+  - echo "No install steps."
+script:
+  - ./configure && make
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name "Travis CI"
+  - git config --local user.email "travis@travis-ci.org"
+  - git tag "$(date +'%Y-%m-%dT%H%M')-$(git log --format=%h -1)"
+deploy:
+  - provider: releases
+    skip_cleanup: true
+    api_key:
+      secure: "Hcep6fU4rMAJWvK39ye189YW8zMEVNGATYqc2x0ODXJ8CV4+hbOSX/TKZUJy5ZyYodo/N4ZPGESeVHqbMfFd6MZ8TgblUnyN40VmzHUyhyxKT1mx8YjxFQYbXuNls+qnCY3DUy5WGhkhcuFP1D9BPxUyLM+dfFiHRuczALQXL98WFaFo5o2K3skS6F3aBxIkOSwE2QWdk+GaN2bpcamOXJNLIOgF99rEknxa6BQCtFnNFgYu46kcOdZ50OWWsnd0tnVvNPecvlbIAV83h9McGYt5/Nz/dr+uqWh1gy6aaPOoOhVXu4Gu4yX3R33QYukZuo+syBpiGoktQ2scp+GAPz5sYHEpTJukVPjQckEuTk6r2YSS3aCGZDcSy9qwzW1X0aUu+fvV0yCng9ZhroiiBP/YButpPD2GFuVYGrYW9MkapYqeWFneVAGA2k2fvJnXLvP9ZmvhnEt6FAEyFQZBDTfmBGJewt1O1/Ziz9PA4hHgl0jSlUkseT1pz4BoTmBqMm8IsY3x1NFb2R8VDMeRPR6mRGmchU8Tpd63Ko9Q/sufSdjEd0z02HwADAW18QIu1ovbfqepDTeiFfbaNRYuJdPEA0nyMop3k/N2Pa+M+agz8sEkTwbuDpnV+5zHcCI0/pVqk4AuNhUCijO4+hcrX0cI57I7Y/KJSd7kOOmOzSI="
+    file:
+      - "amm/amm.pdf"
+      - "trainer/djtrainer.pdf"
+      - "trainee/djtraining.pdf"
+    on:
+      branch: master
+      tags: true
+  - provider: releases
+    skip_cleanup: true
+    prerelease: true
+    api_key:
+      secure: "Hcep6fU4rMAJWvK39ye189YW8zMEVNGATYqc2x0ODXJ8CV4+hbOSX/TKZUJy5ZyYodo/N4ZPGESeVHqbMfFd6MZ8TgblUnyN40VmzHUyhyxKT1mx8YjxFQYbXuNls+qnCY3DUy5WGhkhcuFP1D9BPxUyLM+dfFiHRuczALQXL98WFaFo5o2K3skS6F3aBxIkOSwE2QWdk+GaN2bpcamOXJNLIOgF99rEknxa6BQCtFnNFgYu46kcOdZ50OWWsnd0tnVvNPecvlbIAV83h9McGYt5/Nz/dr+uqWh1gy6aaPOoOhVXu4Gu4yX3R33QYukZuo+syBpiGoktQ2scp+GAPz5sYHEpTJukVPjQckEuTk6r2YSS3aCGZDcSy9qwzW1X0aUu+fvV0yCng9ZhroiiBP/YButpPD2GFuVYGrYW9MkapYqeWFneVAGA2k2fvJnXLvP9ZmvhnEt6FAEyFQZBDTfmBGJewt1O1/Ziz9PA4hHgl0jSlUkseT1pz4BoTmBqMm8IsY3x1NFb2R8VDMeRPR6mRGmchU8Tpd63Ko9Q/sufSdjEd0z02HwADAW18QIu1ovbfqepDTeiFfbaNRYuJdPEA0nyMop3k/N2Pa+M+agz8sEkTwbuDpnV+5zHcCI0/pVqk4AuNhUCijO4+hcrX0cI57I7Y/KJSd7kOOmOzSI="
+    file:
+      - "amm/amm.pdf"
+      - "trainer/djtrainer.pdf"
+      - "trainee/djtraining.pdf"
+    on:
+      branch: dev
