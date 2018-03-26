@@ -19,6 +19,8 @@ before_install:
   - mv "BebasNeue Bold.otf" "$HOME/.local/share/fonts/"
   # Update the font cache
   - fc-cache -f -v
+install:
+  - echo "No install steps."
 script:
   - ./configure && make
 before_deploy:
