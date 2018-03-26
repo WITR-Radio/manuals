@@ -7,7 +7,7 @@ before_install:
   # Set up the TeX environment
   - tlmgr init-usertree
   # Install textpos
-  - tlmgr install textpos
+  - tlmgr install textpos tex-gyre
   # Create the XeLaTeX folder
   - mkdir -p "$HOME/texmf/tex/xelatex"
   # Link the manual class into the texmf directory, so it can be used
