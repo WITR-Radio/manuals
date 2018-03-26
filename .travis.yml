@@ -1,4 +1,6 @@
 language: r
+env:
+  - "TEXINPUTS=${TRAVIS_BUILD_DIR}/class//:"
 before_install:
   # Install LaTeXmk
   - sudo apt install latexmk
