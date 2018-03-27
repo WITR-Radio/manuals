@@ -118,6 +118,8 @@
 % This is the same as the itemize environment, except it clears the paragraph
 % spacing so that the line gaps aren't huge
 \newenvironment{skinnyitemize}{%
+    \vspace{-\parskip}
+    \vspace{-\topsep}
     \begin{itemize}%
         \setlength{\itemsep}{0pt}%
         \setlength{\parskip}{0pt}%
@@ -128,6 +130,8 @@
 
 % Same thing as above, but for enumerate
 \newenvironment{skinnyenumerate}{%
+    \vspace{-\parskip}
+    \vspace{-\topsep}
     \begin{enumerate}%
         \setlength{\itemsep}{0pt}%
         \setlength{\parskip}{0pt}%
