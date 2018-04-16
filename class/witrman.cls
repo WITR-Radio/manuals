@@ -39,8 +39,10 @@
 % We're perverting the standard LaTeX font definitions here, because the main
 % font is supposed to be a serif font, but here both are sans-serif.  It's
 % alright, though, we know what we're doing.
-\setmainfont{TeX Gyre Adventor}
-\newfontfamily\logofont{Bebas Neue}
+%\setmainfont{TeX Gyre Adventor}
+\setmainfont{Century Gothic}
+%\newfontfamily\logofont{Bebas Neue}
+\newfontfamily\logofont{Alternate Gothic No3 D}
 
 
 %%%%%%%%%%
