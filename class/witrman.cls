@@ -14,7 +14,7 @@
 \RequirePackage{fontspec}  % For Century Gothic and Bebas Neue
 \RequirePackage{hyperref}  % For links
 \RequirePackage{eso-pic}   % For page background images
-\RequirePackage{textpos}   % For lining up the revision date on the cover page 
+\RequirePackage{textpos}   % For lining up the revision date on the cover page
 \RequirePackage{color}     % For colored text
 
 
@@ -28,7 +28,7 @@
 \setheaderspaces{18pt}{*}{*}
 \settrims{0pt}{0pt}
 \setheadfoot{28pt}{28pt}
-\checkandfixthelayout
+\checkandfixthelayout{}
 
 
 %%%%%%%%%
@@ -78,7 +78,7 @@
             \centering
             \includegraphics[
                 width=0.91\paperwidth,
-                height=0.93\paperheight
+                height=0.93\paperheight{}
             ]{\TitlepageGraphic}%
             \vfill
 }}}
@@ -91,7 +91,7 @@
             \centering
             \includegraphics[
                 width=0.91\paperwidth,
-                height=0.93\paperheight
+                height=0.93\paperheight{}
             ]{images/toc}%
             \vfill
 }}}
@@ -104,7 +104,7 @@
             \centering
             \includegraphics[
                 width=0.91\paperwidth,
-                height=0.93\paperheight
+                height=0.93\paperheight{}
             ]{images/body}
             \vfill
 }}}
@@ -117,7 +117,7 @@
 
 % This is the same as the itemize environment, except it clears the paragraph
 % spacing so that the line gaps aren't huge
-\newenvironment{skinnyitemize}{%
+\newenvironment{tightitemize}{%
     \begin{itemize}%
         \setlength{\itemsep}{0pt}%
         \setlength{\parskip}{0pt}%
@@ -127,7 +127,7 @@
 }
 
 % Same thing as above, but for enumerate
-\newenvironment{skinnyenumerate}{%
+\newenvironment{tightenumerate}{%
     \begin{enumerate}%
         \setlength{\itemsep}{0pt}%
         \setlength{\parskip}{0pt}%
@@ -143,7 +143,7 @@
 \aliaspagestyle{titlingpage}{empty}
 
 % Set the background for this page only
-\AddToShipoutPictureBG*{\TitlepageBG} 
+\AddToShipoutPictureBG*{\TitlepageBG}
 
 % Create a floating block that's 6.6cm wide, -0.6cm from the left margin, and
 % 9.8cm from the top margin.  These magic numbers line up the text with the rest
@@ -184,7 +184,7 @@
 \end{center}
 
 % the asterisk means that the ToC isn't added to itself
-\tableofcontents* 
+\tableofcontents*
 
 % Force a page break here
 \pagebreak
@@ -198,10 +198,10 @@
 % Make the WITR logo footer
 \newcommand{\makefooter}{%
 % Skip half a centimeter down, for visual symmetry
-\vspace{0.5cm}
+\vspace{5mm}
 % Center this box and put WITR's logo in it
-\makebox[\textwidth][c]{
-    \includegraphics[width=1.5cm,height=1.5cm]{images/witrlogo}
+\makebox[\textwidth][c]{%
+    \includegraphics[width=1.5cm,height=1.5cm]{images/witrlogo}%
 }
 }
 
