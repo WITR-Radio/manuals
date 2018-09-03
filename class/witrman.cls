@@ -164,19 +164,13 @@
 % This mbox is to make sure that the vspace doesn't get ignored. LaTeX ignores
 % spaces with no content before them.
 \mbox{}
-\vspace{3cm}
+\vspace{1.5cm}
 % Horizontally center the stuff in this environment
 \begin{center}
     % Include WITR's logo at 2cm x 2cm
     \includegraphics[width=2cm,height=2cm]{witrlogo} \\
-    % Make a horizontally centered, 3.6cm-wide paragraph box (supports line
-    % breaks) that centers its contents.
-    \parbox[c][3.6cm][c]{\textwidth}{%
-        % The contents are supposed to be centered, but the text needs this
-        % anyway.
-        \centering
-        \fontsize{2.7cm}{1.5cm}\selectfont {\logofont\thetitle}
-    } 
+    \vspace{1.5cm}
+    {\fontsize{2.7cm}{1.5cm}\selectfont {\logofont\thetitle}} 
 
     % include the date below the title. It's wrapped in brackets so that the
     % \Large macro doesn't spill out into the rest of the document.
