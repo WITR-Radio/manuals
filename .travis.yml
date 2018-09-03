@@ -3,7 +3,7 @@ env:
   - "TEXINPUTS=${TRAVIS_BUILD_DIR}/class//:"
 before_install:
   # Install LaTeXmk
-  - sudo apt install fonts-texgyre latexmk
+  - sudo apt install latexmk
   # Set up the TeX environment
   - tlmgr init-usertree
   # Install textpos
@@ -13,14 +13,15 @@ before_install:
   # Link the manual class into the texmf directory, so it can be used
   - ln -s "$TRAVIS_BUILD_DIR/class/witrman.cls" "$HOME/texmf/tex/xelatex/witrman.cls"
   - ln -s "$TRAVIS_BUILD_DIR/class/images" "$HOME/texmf/tex/xelatex/images"
-  # Download Bebas Neue, to skirt license issues
-  - curl "http://www.fontfabric.com/downfont/bebas_neue.zip" > bebas_neue.zip
-  # Extract the bold weight from that zip
-  - unzip bebas_neue "BebasNeue Bold.otf"
+  # Decrypt fonts
+  - openssl aes-256-cbc -K $encrypted_148dbe0b04ee_key -iv $encrypted_148dbe0b04ee_iv -in fonts.tgz.enc -out fonts.tgz -d
   # Make the local font folder
   - mkdir -p "$HOME/.local/share/fonts"
-  # Install Bebas Neue
-  - mv "BebasNeue Bold.otf" "$HOME/.local/share/fonts/"
+  # Install fonts
+  - tar xzf fonts.tgz
+  - mv "cgr.ttf" "$HOME/.local/share/fonts/"
+  - mv "cgb.ttf" "$HOME/.local/share/fonts/"
+  - mv "ag2.ttf" "$HOME/.local/share/fonts/"
   # Update the font cache
   - fc-cache -f -v
 install:
