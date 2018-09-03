@@ -14,12 +14,11 @@ before_install:
   - ln -s "$TRAVIS_BUILD_DIR/class/witrman.cls" "$HOME/texmf/tex/xelatex/witrman.cls"
   - ln -s "$TRAVIS_BUILD_DIR/class/images" "$HOME/texmf/tex/xelatex/images"
   # Decrypt fonts
-  - openssl aes-256-cbc -K $encrypted_148dbe0b04ee_key -iv $encrypted_148dbe0b04ee_iv -in cgb.ttf.enc -out cgb.ttf -d
-  - openssl aes-256-cbc -K $encrypted_148dbe0b04ee_key -iv $encrypted_148dbe0b04ee_iv -in ag2.ttf.enc -out ag2.ttf -d
-  - openssl aes-256-cbc -K $encrypted_148dbe0b04ee_key -iv $encrypted_148dbe0b04ee_iv -in cgr.ttf.enc -out cgr.ttf -d
+  - openssl aes-256-cbc -K $encrypted_148dbe0b04ee_key -iv $encrypted_148dbe0b04ee_iv -in fonts.tgz.enc -out fonts.tgz -d
   # Make the local font folder
   - mkdir -p "$HOME/.local/share/fonts"
   # Install fonts
+  - tar xzf fonts.tgz
   - mv "cgr.ttf" "$HOME/.local/share/fonts/"
   - mv "cgb.ttf" "$HOME/.local/share/fonts/"
   - mv "ag2.ttf" "$HOME/.local/share/fonts/"
