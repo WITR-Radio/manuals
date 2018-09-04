@@ -5,7 +5,17 @@
 % This defines the document as a 14pt-size article on US letter paper that only
 % uses one side of the page (don't shift it right and left like a book)
 \LoadClass[14pt,letterpaper,article,oneside]{memoir}
+%\LoadClass[14pt,letterpaper]{extreport}
 
+\newcommand{\ToCGraphic}{images/toc}
+\newcommand{\BodyGraphic}{images/body}
+\newif\if@debuglayout\@debuglayoutfalse
+\DeclareOption{debuglayout}{%
+    \renewcommand{\ToCGraphic}{images/toc-transparent}%
+    \renewcommand{\BodyGraphic}{images/body-transparent}%
+    \@debuglayouttrue%
+}
+\ProcessOptions\relax
 
 %%%%%%%%%%%%%%%%%%%%%
 % Required packages %
@@ -16,15 +26,18 @@
 \RequirePackage{eso-pic}   % For page background images
 \RequirePackage{textpos}   % For lining up the revision date on the cover page
 \RequirePackage{color}     % For colored text
+\if@debuglayout
+\RequirePackage[pass,showframe]{geometry}
+\fi
 
 
 \graphicspath{{./images}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Memoir layout constraints %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\settypeblocksize{620pt}{350pt}{*}
+\settypeblocksize{580pt}{350pt}{*}
 \setlrmargins{*}{*}{1}
-\setulmargins{*}{*}{1.8}
+\setulmargins{*}{*}{1.12}
 \setheaderspaces{18pt}{*}{*}
 \settrims{0pt}{0pt}
 \setheadfoot{28pt}{28pt}
@@ -101,7 +114,7 @@
             \includegraphics[
                 width=0.91\paperwidth,
                 height=0.93\paperheight{}
-            ]{images/toc}%
+            ]{\ToCGraphic}%
             \vfill
 }}}
 
@@ -114,7 +127,7 @@
             \includegraphics[
                 width=0.91\paperwidth,
                 height=0.93\paperheight{}
-            ]{images/body}
+            ]{\BodyGraphic}%
             \vfill
 }}}
 
@@ -157,7 +170,7 @@
 % Create a floating block that's 6.6cm wide, -0.66cm from the left margin, and
 % 9.6cm from the top margin.  These magic numbers line up the text with the rest
 % of the text on the front cover.
-\begin{textblock*}{6.6cm} (-0.66cm,9.6cm) {%
+\begin{textblock*}{6.6cm} (-0.66cm,8.1cm) {%
     % Some more magic constants that set the font size for the revision date
     \fontsize{0.9cm}{1.2cm}\selectfont \color{revision-blue} \thedate%
 }
@@ -172,14 +185,18 @@
 
 % This mbox is to make sure that the vspace doesn't get ignored. LaTeX ignores
 % spaces with no content before them.
-\mbox{}
-\vspace{1.5cm}
+%\mbox{}
+%\vspace{1.5cm}
+\begin{vplace}
+    \centering
+    \includegraphics[width=2cm,height=2cm]{witrlogo}
+\end{vplace}
 % Horizontally center the stuff in this environment
 \begin{center}
     % Include WITR's logo at 2cm x 2cm
-    \includegraphics[width=2cm,height=2cm]{witrlogo} \\
-    \vspace{1.5cm}
-    {\fontsize{2.0cm}{2.0cm}\selectfont {\logofont\thetitle}} 
+    %\includegraphics[width=2cm,height=2cm]{witrlogo} \\
+    %\vspace{1.5cm}
+    {\fontsize{2.0cm}{2.0cm}\selectfont {\logofont\thetitle}}
 
     % include the date below the title. It's wrapped in brackets so that the
     % \Large macro doesn't spill out into the rest of the document.
