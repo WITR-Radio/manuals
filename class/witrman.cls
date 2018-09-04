@@ -11,7 +11,7 @@
 % Required packages %
 %%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{graphicx}  % For images
-\RequirePackage{fontspec}  % For Century Gothic and Bebas Neue
+\RequirePackage{fontspec}  % For Century Gothic and Alternate Gothic No3 D
 \RequirePackage{hyperref}  % For links
 \RequirePackage{eso-pic}   % For page background images
 \RequirePackage{textpos}   % For lining up the revision date on the cover page
@@ -35,12 +35,21 @@
 % Fonts %
 %%%%%%%%%
 
+% The correct versions of all of these fonts are included in the repo for
+% builds with TravisCI.  If you need to change them to compile the document on
+% your local machine, you must change them back to the defaults before you
+% commit and push to the repository, otherwise the build will fail!
 \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-% We're perverting the standard LaTeX font definitions here, because the main
-% font is supposed to be a serif font, but here both are sans-serif.  It's
-% alright, though, we know what we're doing.
-\setmainfont{TeX Gyre Adventor}
-\newfontfamily\logofont{Bebas Neue}
+\setmainfont{Century Gothic}
+%\setmainfont{TeX Gyre Adventor}      % An acceptable alternate if you can't
+                                      % find a copy of Century Gothic
+\newfontfamily\logofont{Alternate Gothic No2 D}[LetterSpace=-2]
+                                      % I'm fully aware that the style guide
+                                      % says to use No3, but the title page
+                                      % graphics were generated with No2, so I'm
+                                      % using this for consistency's sake.
+%\newfontfamily\logofont{Bebas Neue}  % An acceptable alternate if you can't
+                                      % find a copy of Alternate Gothic No2 D
 
 
 %%%%%%%%%%
@@ -145,10 +154,10 @@
 % Set the background for this page only
 \AddToShipoutPictureBG*{\TitlepageBG}
 
-% Create a floating block that's 6.6cm wide, -0.6cm from the left margin, and
-% 9.8cm from the top margin.  These magic numbers line up the text with the rest
+% Create a floating block that's 6.6cm wide, -0.66cm from the left margin, and
+% 9.6cm from the top margin.  These magic numbers line up the text with the rest
 % of the text on the front cover.
-\begin{textblock*}{6.6cm}(-0.6cm,9.8cm) {%
+\begin{textblock*}{6.6cm} (-0.66cm,9.6cm) {%
     % Some more magic constants that set the font size for the revision date
     \fontsize{0.9cm}{1.2cm}\selectfont \color{revision-blue} \thedate%
 }
@@ -170,7 +179,7 @@
     % Include WITR's logo at 2cm x 2cm
     \includegraphics[width=2cm,height=2cm]{witrlogo} \\
     \vspace{1.5cm}
-    {\fontsize{2.7cm}{1.5cm}\selectfont {\logofont\thetitle}} 
+    {\fontsize{2.0cm}{2.0cm}\selectfont {\logofont\thetitle}} 
 
     % include the date below the title. It's wrapped in brackets so that the
     % \Large macro doesn't spill out into the rest of the document.
