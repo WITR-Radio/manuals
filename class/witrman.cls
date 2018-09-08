@@ -22,7 +22,7 @@
 %%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{graphicx}  % For images
 \RequirePackage{fontspec}  % For Century Gothic and Alternate Gothic No3 D
-\RequirePackage{hyperref}  % For links
+\RequirePackage[hidelinks]{hyperref}  % For links
 \RequirePackage{eso-pic}   % For page background images
 \RequirePackage{textpos}   % For lining up the revision date on the cover page
 \RequirePackage{color}     % For colored text
