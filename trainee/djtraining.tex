@@ -1,7 +1,8 @@
 \documentclass{witrman}
+\usepackage{wrapfig}
 
 \title{DJ TRAINING MANUAL}
-\date{FALL 2018}
+\date{SPRING 2019}
 \renewcommand{\TitlepageGraphic}{images/titlepage}
 
 \begin{document}
@@ -11,6 +12,9 @@
 \maketoc{}
 
 \setpagebg{}
+
+% Friendly reminder: use \textbf{} for emphasis.
+% Underlines are typographically ugly!
 
 \chapter{Becoming a DJ at WITR}
 
@@ -86,12 +90,12 @@ our DJs.  The end result is a professional, catchy broadcast style that
 represents the station's tastes as a whole.
 
 A Pulse of Music show is typically 2 hours long, but can be broken up into two
-separate, 1-hour long shows if necessary.  Because this is not a specialty show,
-only WITR-owned music can be played for these hours.  DJs can select their onw
-music from our vast library downstairs, our bin of new albums, and our racks of
-local music.  This by no means limits our DJs options, as our library consists
-of thousands of CDs from every genre on the spectrum and the second largest
-private vinyl collection in New York State.
+separate 1-hour long shows if necessary.  Pulse of Music shows may only play
+music owned by WITR\@.  DJs can select their onw music from our vast library
+downstairs, our bin of new albums, and our racks of local music.  This by no
+means limits our DJs' options, as our library consists of thousands of CDs from
+every genre --- and the second largest private vinyl collection in
+New York State.
 
 \includegraphics[width=\textwidth]{images/library-vinyl.jpg}
 
@@ -115,9 +119,19 @@ contain.
         back-to-back, but do not need to be from the same album.}
 \end{itemize}
 
-\includegraphics[width=0.49\textwidth]{images/newbin.jpg}
-\includegraphics[width=0.49\textwidth]{images/specialty.jpg}
-% TODO: add captions
+% This creates a table with two columns, each one centering its contents.
+% The border between two columns is an ampersand (&), and the end of a row is
+% indicated by two backslashes (\\).  Note that no rules are drawn around these
+% table cells. Between-column rules are specified in the second pair of curly
+% braces with a pipe character (|).  Between-row rules are drawn with \hline
+% after the row-end marker.
+\begin{tabular}{cc}
+    \includegraphics[width=0.47\textwidth]{images/newbin.jpg} &
+    \includegraphics[width=0.47\textwidth]{images/specialty.jpg} \\
+
+    New Bin &
+    Specialty Show Rack \\
+\end{tabular}
 
 
 \subsection{Structure}
@@ -205,11 +219,21 @@ in-depth mic breaks.  Specialty Shows have their own names, imaging promos, and
 featured banners on the WITR website.  A few examples of Specialty Shows include
 reggae, blues, disco, world, jazz, electronic, punk, metal, and many more.
 
-\includegraphics[width=0.24\textwidth]{images/reggae.jpg}
-\includegraphics[width=0.24\textwidth]{images/afterparty.jpg}
-\includegraphics[width=0.24\textwidth]{images/13thfloor.jpg}
-\includegraphics[width=0.24\textwidth]{images/blues.jpg}
-% TODO: add captions
+\begin{tabular}{*{4}{m{0.23\textwidth}}}
+    \includegraphics[height=0.23\textwidth]{images/reggae.jpg} &
+    \includegraphics[height=0.23\textwidth]{images/afterparty.jpg} &
+    \includegraphics[height=0.23\textwidth]{images/13thfloor.jpg} &
+    \includegraphics[height=0.23\textwidth]{images/blues.jpg} \\
+
+    % \footnotesize selects a smaller font
+    % \centering turns on centering
+    % Both of those macros affect the current scope, which in this case is the
+    % table cell.  That's why they're duplicated for each cell.
+    \footnotesize \centering Reggae Sounds with Babi Katt &
+    \footnotesize \centering The Afterparty with Fluent and Stoph &
+    \footnotesize \centering 13\textsuperscript{th} Floor with Johnny Thunder &
+    \footnotesize \centering Bad Dog Blues with Gary \\
+\end{tabular}
 
 
 \chapter{On-Air Rules and Regulations}
@@ -331,7 +355,7 @@ parts you will need to understand.  Don't let this intimidate you, though!
 Working the board will become second nature to you throughout the course of your
 training.
 
-\includegraphics[width=\textwidth]{images/faders.jpg}
+{\centering \includegraphics[width=0.75\textwidth]{images/faders.jpg} }
 
 \subsection{Channels}
 
@@ -432,8 +456,14 @@ play time count begins at 0.  In Studio X, you can skip to a track by using the
 ``Tune'' knob, and the play time count begins at the song's duration and counts
 down.
 
-\includegraphics[width=0.49\textwidth]{images/cdskip.jpg}
-\includegraphics[width=0.49\textwidth]{images/cdvol.jpg}
+\begin{tabular}{cc}
+    \includegraphics[width=0.46\textwidth]{images/cdskip.jpg} &
+    \includegraphics[width=0.46\textwidth]{images/cdvol.jpg} \\
+
+    Studio A &
+    Studio X \\
+\end{tabular}
+
 % TODO: add captions
 
 A piece of advice that has been passed down by DJs through the ages: place a
@@ -446,6 +476,7 @@ There are two turntables in each studio which DJs use to spin vinyl records.
 They are controlled by the channels labeled ``TT1'' and ``TT2.''
 
 \includegraphics[width=\textwidth]{images/turntable.jpg}
+\pagebreak
 
 To prepare a track to play on air:
 \begin{enumerate}
@@ -518,13 +549,14 @@ down.
 
 \subsection{Phones}
 
+\begin{wrapfigure}{R}{0.3\textwidth}
+    \centering
+    \includegraphics[width=0.25\textwidth]{images/phone.jpg}
+\end{wrapfigure}
+
 There are phones in both Studio X and the general office, and you should be
 prepared to answer both in as professional a manner as is possible.  Typically,
 this is ``Hello, WITR 89.7.''
-
-\begin{center}
-    \includegraphics[width=0.25\textwidth]{images/phone.jpg}
-\end{center}
 
 If a caller requests the contact information for a member of the e-board, you
 are \textbf{only allowed to disclose their WITR email address}.  It is strictly
@@ -725,7 +757,7 @@ To set up and record a mic break:
         button.  This will start the next track and is equivalent to turning the
         mic off in Studio A or X.
     \item Press ``Save.'' If you aren't satisfied with your mic breaks, you can
-        press ``Do Over'' instead. 
+        press ``Do Over'' instead.
     \item To listen to your mic break, select ``Voice Track Here'' and use the
         ``Play'' and ``Stop'' buttons in the upper left.
 \end{enumerate}
@@ -794,13 +826,15 @@ familiarize yourself with the library.  Ask your trainer to show you some of
 their favorite bands, and see which of your own favorite artists you can find in
 the library!
 
+\begin{wrapfigure}{L}{0.5\textwidth}
+    \includegraphics[width=0.5\textwidth]{images/library-cd.jpg}
+\end{wrapfigure}
+
 Some DJs keep a notebook of artist names and descriptions so they have a core
 resource of music they know and can fall back on.  You will find that the longer
 you DJ at WITR, the exponentially (or logistically, for the math nerds) larger
 your personal library will grow, and the harder it will be to remember that one
 indie EP from some new band that came out a year ago.
-
-\includegraphics[width=\textwidth]{images/library-cd.jpg}
 
 Here are some tips to help you prepare before a show:
 \begin{itemize}
@@ -843,15 +877,15 @@ thousands of dollars to pay off an FCC fine.
 
 \subsection{Mic Breaks}
 
+\begin{wrapfigure}{R}{0.3\textwidth}
+\includegraphics[width=0.3\textwidth]{images/studioadj.jpg}
+\end{wrapfigure}
+
 Whether it's a Pulse of Music or a Specialty show, mic breaks are a crucial part
 of DJing.  Without informative mic breaks, your audience won't learn anything
 new about the music or the station they are listening to.  Mic breaks also serve
 an important role in transitioning between sets.  At the end of the day though,
 when you are on the mic, you are representing WITR to the public.
-
-\begin{center}
-\includegraphics[width=0.8\textwidth]{images/studioadj.jpg}
-\end{center}
 
 During a mic break, you will be managing a lot of moving parts, and the quality
 of a mic break can dictate whether a listener stays tuned or not.  You want to
@@ -964,9 +998,9 @@ DJs can give you ideas.
 When you have mastered mic breaks and can finesse your music choices, it's time
 to consider your style.
 
-\begin{center}
-    \includegraphics[width=0.8\textwidth]{images/style.jpg}
-\end{center}
+\begin{wrapfigure}{L}{0.3\textwidth}
+    \includegraphics[width=0.3\textwidth]{images/style.jpg}
+\end{wrapfigure}
 
 There are many Pulse of Music shows, so why should a listener tune into yours
 specifically?  You want to develop a unique broadcast that lets your personality
@@ -1047,7 +1081,7 @@ received.  To check out a CD to review, you must write your full initials
 is also a box of labels in the office, typically next to the clipboard, that we
 use for CDs.
 
-To review a CD:
+To review a CD\@:
 \begin{enumerate}
     \item Check the CD out.
     \item Listen to \textbf{every track all the way through}.  This is essential
@@ -1067,18 +1101,20 @@ To review a CD:
 
 \includegraphics[width=\textwidth]{images/cdreview-text.png}
 
+\pagebreak
 
 \chapter{Vinyl Care Guide}
+
+\begin{wrapfigure}{R}{0.4\textwidth}
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/turntableusage.jpg}
+\end{wrapfigure}
 
 WITR is fortunate to have the second largest private vinyl record collection in
 New York State.  However, records degrade considerably over time if they are
 handled improperly.  At WITR, we aim to preserve our wonderful library for
 decades to come.  Therefore, if you plan on playing vinyl in your show, please
 take care to treat our records well.
-
-\begin{center}
-    \includegraphics[width=0.6\textwidth]{images/turntableusage.jpg}
-\end{center}
 
 \subsection{Handling}
 
