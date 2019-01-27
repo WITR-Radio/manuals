@@ -1,35 +1,39 @@
-\documentclass{witrman}
+\documentclass[]{witrman}
 
 \usepackage{xfrac}  % for 1/2 turn later in the document
 
 \setsecnumdepth{none}
 \title{DJ TRAINER GUIDE}
-\date{FALL 2018}
-\renewcommand{\TitlepageGraphic}{images/titlepage}
+\date{SPRING 2019}
+\renewcommand{\LogoColor}{yellow}
+\renewcommand{\TitleColor}{black}
 
 \newcommand{\makehomework}[1]{%
-\vspace{1mm}
-\rule{\textwidth}{1pt}
-\textbf{Homework}:\\
-#1\\
-\rule{\textwidth}{1pt}
+    \begin{samepage}
+        \vspace{2pt}
+        \rule{\textwidth}{1pt}
+        \textbf{Homework:}\\
+        #1\\
+        \rule[3pt]{\textwidth}{1pt}
+    \end{samepage}
 }
 
 \begin{document}
 
 \maketitle
 
-\maketoc
+\maketoc{}
 
-\setpagebg
+\setpagebg{}
 
 \chapter{Shadowing}
 
-Welcome your trainee to the wonderful world of DJing at WITR. Talk about their
+Welcome your trainee to the wonderful world of DJing at WITR\@. Talk about their
 music passions and show off the mixing board.
 
-\makehomework{Study the All Member Manual.  (Send your trainee a copy of the
-manual if they don't already have it.)}
+\makehomework{Study the All Member Manual.  (Send your trainee
+\href{https://github.com/WITR-Radio/manuals/releases}{a copy of the
+manual} if they don't already have it.)}
 
 
 \chapter{Session 1}
@@ -114,21 +118,26 @@ that you first discovered while reviewing one of their CDs.
 \subsection{Equipment}
 
 RDLibrary:
-\begin{skinnyitemize}
+% This particular construct is explained in the AMM—in short, it cancels out one
+% of the two spaces inserted before the list, so that there is a clearer
+% association between the text before the list and the content of the list.
+\vspace{-\topsep}
+\begin{tightitemize}
     \item The Bins
     \item Searching the library
-    \item Using the 'only show first 100' checkbox
-\end{skinnyitemize}
+    \item Using the `only show first 100' checkbox
+\end{tightitemize}
 
 RDAirPlay:
-\begin{skinnyitemize}
+\vspace{-\topsep}
+\begin{tightitemize}
     \item Delete or move a track
     \item Track talk-markers
     \item Loading the logs (this is \textbf{crucial}, especially the distinction
         between FM and Underground logs)
     \item Auto/Manual modes
     \item How to recover from an RDAirPlay crash
-\end{skinnyitemize}
+\end{tightitemize}
 
 \subsection{On-Air}
 
@@ -138,6 +147,10 @@ and brainstorm some DJ names.
 \makehomework{Review a full-length album.  Bring to the next session.}
 
 
+% I've tried to make sure that the homework boxes don't get split across pages
+% with the samepage environment, but it doesn't always help.  Instead, there are
+% a bunch of little spacing tweaks like this to keep things looking good.
+\vspace{-1pc}
 \chapter{Session 4}
 
 Get your trainee comfortable with mic breaks.  Look over the CD review they
@@ -165,10 +178,8 @@ etc.).
 \chapter{Session 5}
 
 Teach your trainee how to use the turntables.  Time to let them spread their
-wings and fly!
-
-If your trainee isn't already a member of the family, try to get them involved
-in the station's social circle.
+wings and fly!  If your trainee isn't already a member of the family, try to get
+them involved in the station's social circle.
 
 \subsection{Music}
 
@@ -177,39 +188,37 @@ Ask your trainee to pick out a vinyl album or two from the library to play.
 \subsection{Equipment}
 
 Teach your trainee how to find and play vinyls:
-\begin{skinnyitemize}
+\vspace{-\topsep}
+\begin{tightitemize}
     \item Using the Vinyl Bible on the DJ portal
     \item Cleaning and maintenance of the turntable
     \item Board operation for turntable channel
     \item Previewing a track
     \item Cuing up a track ($\sfrac{1}{2}$ turn)
-\end{skinnyitemize}
+\end{tightitemize}
 
 \subsection{On-Air}
 
 Have your trainee DJ for the whole hour.  Supervise them and provide guidance if
-they need it.  Write down your notes to go over with them later and let them
-know what habits would hurt their demo score.
-
-\begin{center}
-    %\caption{Your trainee is growing up fast!}
-    \includegraphics[width=8cm]{images/console}
-\end{center}
+they need it.  Write down notes about what habits might hurt their demo score,
+then review them with your trainee later.
 
 \makehomework{Pass the DJ Test.}
 
 
 \chapter{Session 6}
 
-What do we do when s--- hits the fan?
-
-If your trainee did not pass their DJ test, ask the Programming Director to see
-your trainee's test and review their mistakes with them.
+What do we do when s--- hits the fan?  If your trainee did not pass their DJ
+test, ask the Programming Director to see your trainee's test and review their
+mistakes with them.
 
 \subsection{Music}
 
 If a track says an FCC-violating lyric:
-\begin{skinnyenumerate}
+\vspace{-\topsep}
+% These aren't tightenumerate because the items are multiple lines each, and
+% because I needed this page to take up more space.
+\begin{enumerate}
     \item Hit the dump button
     \item If you have time, look up the full lyrics to determine if there are
         any more swears in the song
@@ -218,18 +227,19 @@ If a track says an FCC-violating lyric:
     \item Mark the track as an FCC violation on the label
     \item Email the Music Director and Programming Director and describe the
         violation
-\end{skinnyenumerate}
+\end{enumerate}
 
 \subsection{Equipment}
 
 If RDAirPlay or RDLibrary crash:
-\begin{skinnyenumerate}
+\vspace{-\topsep}
+\begin{enumerate}
     \item Have at least 1 CD cued up in the CD player for exactly this situation
     \item Play the Emergency Music
     \item Force close RDAirPlay
     \item Start RDAirPlay and RDSecondPanel back up
     \item Load the log and resume playing tracks as usual
-\end{skinnyenumerate}
+\end{enumerate}
 
 \subsection{On-Air}
 
@@ -277,6 +287,6 @@ them later.
 Your trainee is now all grown up and ready to leave the nest!  Make sure to
 congratulate them on their demo.
 
-\makefooter
+\makefooter{}
 
 \end{document}
