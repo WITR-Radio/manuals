@@ -232,7 +232,13 @@
 % the asterisk means that the ToC isn't added to itself
 \tableofcontents*
 
-% Force a page break here
+% This is done with vplace instead of vfill because it pushes the rest of the
+% page content up a bit more, which I like better.
+\begin{vplace}
+    \mbox{}
+\end{vplace}
+
+% Force a page break so that the ToC doesn't share a page with anything else.
 \pagebreak
 }
 
