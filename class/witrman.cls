@@ -7,8 +7,9 @@
 \LoadClass[14pt,letterpaper,article,oneside]{memoir}
 %\LoadClass[14pt,letterpaper]{extreport}
 
-\newcommand{\ToCGraphic}{images/toc}
-\newcommand{\BodyGraphic}{images/body}
+\newcommand{\CoverGraphic}{images/cover-page}
+\newcommand{\ToCGraphic}{images/toc-page}
+\newcommand{\BodyGraphic}{images/body-page}
 \newif\if@debuglayout\@debuglayoutfalse
 \DeclareOption{debuglayout}{%
     \renewcommand{\ToCGraphic}{images/toc-transparent}%
@@ -24,7 +25,7 @@
 \RequirePackage{fontspec}  % For Century Gothic and Alternate Gothic No3 D
 \RequirePackage[hidelinks]{hyperref}  % For links
 \RequirePackage{eso-pic}   % For page background images
-\RequirePackage{textpos}   % For lining up the revision date on the cover page
+\RequirePackage{textpos}   % For the logo and text on the cover page
 \RequirePackage{color}     % For colored text
 \if@debuglayout
 \RequirePackage[pass,showframe]{geometry}
@@ -69,8 +70,13 @@
 % Colors %
 %%%%%%%%%%
 
-% Blue color for the revision text on the cover page
-\definecolor{revision-blue}{HTML}{1794BB}
+% WITR's color palette
+\definecolor{witr-yellow}{HTML}{FAEA33}
+\definecolor{witr-dark-yellow}{HTML}{F5D435}
+\definecolor{witr-pale-blue}{HTML}{AADFF1}
+\definecolor{witr-light-blue}{HTML}{69CDEE}
+\definecolor{witr-blue}{HTML}{0EA5DF}
+\definecolor{witr-dark-blue}{HTML}{1795BC}  % Use this for revision date
 
 
 %%%%%%%%%%%%
@@ -88,9 +94,17 @@
 % Commands %
 %%%%%%%%%%%%
 
-% Which image to put on the title page.  By default, use one that explains what
-% the document author has misconfigured.
-\newcommand\TitlepageGraphic{misconfig}
+% Include a WITR logo. Specify a width as the first argument and one of
+% "yellow", "white", or "black" as the second argument.
+\newcommand\WITRLogo[2]{%
+    \includegraphics[width=#1]{images/stacked-logo-#2}
+}
+
+% The color of the logo on the cover page
+\newcommand\LogoColor{yellow}
+
+% The color of the title on the cover page
+\newcommand\TitleColor{white}
 
 % Command to make the background for the title page
 \newcommand\TitlepageBG{%
@@ -101,7 +115,7 @@
             \includegraphics[
                 width=0.91\paperwidth,
                 height=0.93\paperheight{}
-            ]{\TitlepageGraphic}%
+            ]{\CoverGraphic}%
             \vfill
 }}}
 
@@ -166,15 +180,29 @@
 
 % Set the background for this page only
 \AddToShipoutPictureBG*{\TitlepageBG}
+    % Create a floating block that's 5 picas wide, -19.4 points from the left
+    % margin, and -15.8 points from the top margin.
+    \begin{textblock*}{5pc} (-19.4pt,-15.8pt)
+        % Put the WITR logo in it
+        \WITRLogo{79.5pt}{\LogoColor}
+    \end{textblock*}
 
-% Create a floating block that's 6.6cm wide, -0.66cm from the left margin, and
-% 9.6cm from the top margin.  These magic numbers line up the text with the rest
-% of the text on the front cover.
-\begin{textblock*}{6.6cm} (-0.66cm,8.1cm) {%
-    % Some more magic constants that set the font size for the revision date
-    \fontsize{0.9cm}{1.2cm}\selectfont \color{revision-blue} \thedate%
-}
-\end{textblock*}
+    % Create a floating block that's 19 picas wide, -22 points from the left
+    % margin, and 90 ponts from the top margin.
+    \begin{textblock*}{19pc} (-22pt,90pt)
+        % Set the font to 88 points with a 66 point baseline skip, set the text
+        % color to whatever the title color macro is, set the font to the logo
+        % font, and then write out whatever the title is.
+        \fontsize{88pt}{66pt}\selectfont {\color{\TitleColor}\logofont\thetitle}
+    \end{textblock*}
+    % Create a floating block that's 187 points wide, -0.66cm from the left
+    % margin, and 9.6cm from the top margin.  These magic numbers line up the
+    % text with the rest of the text on the front cover.
+    \begin{textblock*}{187pt} (-0.66cm,8.1cm)
+        % Choose a font size that is 25.5 points tall and has a baseline skip of
+        % 34 points. Set the color to WITR's dark blue color.
+        {\fontsize{25.5pt}{34pt}\selectfont\color{witr-dark-blue}\thedate}
+    \end{textblock*}
 \end{titlingpage}
 }
 
@@ -189,12 +217,10 @@
 %\vspace{1.5cm}
 \begin{vplace}
     \centering
-    \includegraphics[width=2cm,height=2cm]{witrlogo}
+    \WITRLogo{2cm}{black}
 \end{vplace}
 % Horizontally center the stuff in this environment
 \begin{center}
-    % Include WITR's logo at 2cm x 2cm
-    %\includegraphics[width=2cm,height=2cm]{witrlogo} \\
     %\vspace{1.5cm}
     {\fontsize{2.0cm}{2.0cm}\selectfont {\logofont\thetitle}}
 
@@ -221,7 +247,7 @@
 \vspace{5mm}
 % Center this box and put WITR's logo in it
 \makebox[\textwidth][c]{%
-    \includegraphics[width=1.5cm,height=1.5cm]{images/witrlogo}%
+    \WITRLogo{1.5cm}{black}
 }
 }
 
